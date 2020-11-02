@@ -5,38 +5,36 @@ import {
   StyleSheet,
   StyleProp,
   ViewStyle,
-  Text
+  Image,
+  ImageSourcePropType
 } from 'react-native';
-import { Fonts, FontSizes } from '../../constants/fonts';
 import { Spaces } from '../../constants/spaces';
 
 interface Props {
   onPress: () => void;
   style?: StyleProp<ViewStyle>;
-  text: string;
+  icon: ImageSourcePropType;
   disabled?: boolean;
 }
 
-const RoundButton = ({ onPress, style, text, disabled }: Props) => {
+const ImageButton = ({ onPress, style, icon, disabled }: Props) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[styles.buttonContainer, style]}
       disabled={disabled}
     >
-      <Text style={styles.buttonText}>{text}</Text>
+      <Image source={icon} />
     </TouchableOpacity>
   );
 };
 
-const BTN_HEIGHT = 50;
-const BTN_WIDTH = 170;
+const SIZE = 55;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    borderRadius: BTN_HEIGHT / 5,
-    height: BTN_HEIGHT,
-    minWidth: BTN_WIDTH,
+    height: SIZE,
+    width: SIZE,
     backgroundColor: Colors.yellow,
     justifyContent: 'center',
     alignItems: 'center',
@@ -46,12 +44,7 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     shadowOffset: { height: 1, width: 1 },
     elevation: 2
-  },
-  buttonText: {
-    color: Colors.black,
-    fontFamily: Fonts.Lato_bold,
-    fontSize: FontSizes.normal
   }
 });
 
-export default RoundButton;
+export default ImageButton;

@@ -17,7 +17,7 @@ interface Props {
   disabled?: boolean;
 }
 
-const RoundButton = ({ onPress, style, text, disabled }: Props) => {
+const DarkButton = ({ onPress, style, text, disabled }: Props) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -30,14 +30,13 @@ const RoundButton = ({ onPress, style, text, disabled }: Props) => {
 };
 
 const BTN_HEIGHT = 50;
-const BTN_WIDTH = 170;
+const BTN_WIDTH = 380;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    borderRadius: BTN_HEIGHT / 5,
     height: BTN_HEIGHT,
-    minWidth: BTN_WIDTH,
-    backgroundColor: Colors.yellow,
+    maxWidth: BTN_WIDTH,
+    backgroundColor: Colors.darkGrey,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: Spaces.normal,
@@ -48,10 +47,10 @@ const styles = StyleSheet.create({
     elevation: 2
   },
   buttonText: {
-    color: Colors.black,
+    color: Colors.yellow,
     fontFamily: Fonts.Lato_bold,
     fontSize: FontSizes.normal
   }
 });
 
-export default RoundButton;
+export default DarkButton;
