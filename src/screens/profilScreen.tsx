@@ -7,6 +7,8 @@ import PagesTemplate from '../components/pages/pagesTemplate';
 import { Icons } from '../constants/icons';
 import { Margins } from '../constants/margins';
 import { Spaces } from '../constants/spaces';
+import * as Linking from 'expo-linking';
+import { SocialUrls } from '../constants/urls';
 
 const ProfilScreen = () => {
   return (
@@ -54,9 +56,15 @@ const ProfilScreen = () => {
 const onEditPress = () => {};
 const onTermsPress = () => {};
 const onContactPress = () => {};
-const onFacebookPress = () => {};
-const onInstagramPress = () => {};
-const onYoutubePress = () => {};
+const onFacebookPress = () => {
+  Linking.openURL(SocialUrls.FACEBOOK);
+};
+const onInstagramPress = () => {
+  Linking.openURL(SocialUrls.INSTAGRAM);
+};
+const onYoutubePress = () => {
+  Linking.openURL(SocialUrls.YOUTUBE);
+};
 
 const styles = StyleSheet.create({
   container: {
