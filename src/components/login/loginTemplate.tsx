@@ -1,0 +1,81 @@
+import React from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { Colors } from '../../constants/colors';
+import { Margins } from '../../constants/margins';
+import { Icons } from '../../constants/icons';
+import { Fonts, FontSizes } from '../../constants/fonts';
+import { ScrollView } from 'react-native-gesture-handler';
+import RoundButton from '../button/roundButton';
+
+interface Props {
+  buttonText: string;
+  change: string;
+  onPressButton: () => void;
+  onPressChange: () => void;
+  children: React.ReactNode;
+}
+
+const LoginTemplate = ({
+  buttonText,
+  change,
+  onPressButton,
+  onPressChange,
+  children
+}: Props) => {
+  return (
+    <ScrollView
+      style={styles.scrollView}
+      contentContainerStyle={{ flexGrow: 1 }}
+    >
+      <StatusBar style="dark" />
+      <View style={styles.container}>
+        <View style={styles.boxView}>
+          <Image source={Icons.logo} style={[Margins.mbBig, Margins.mtBig]} />
+          {children}
+          <RoundButton
+            style={[Margins.mtBig, Margins.mbBig]}
+            text={buttonText}
+            onPress={onPressButton}
+            disabled={false}
+          />
+          <Text
+            style={[styles.simpleText, Margins.mbBig]}
+            onPress={onPressChange}
+          >
+            {change}
+          </Text>
+        </View>
+      </View>
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 20,
+    backgroundColor: Colors.yellow
+  },
+  boxView: {
+    width: '90%',
+    minHeight: '60%',
+    backgroundColor: Colors.darkGrey,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 15
+  },
+  simpleText: {
+    color: Colors.white,
+    fontFamily: Fonts.Lato_regular,
+    fontSize: FontSizes.small
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: Colors.yellow
+  }
+});
+
+export default LoginTemplate;
