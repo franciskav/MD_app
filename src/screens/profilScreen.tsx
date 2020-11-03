@@ -1,14 +1,40 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Icon } from 'react-native-elements';
 import DarkButton from '../components/button/darkButton';
 import ImageButton from '../components/button/imageButton';
 import PagesTemplate from '../components/pages/pagesTemplate';
 import { Icons } from '../constants/icons';
 import { Margins } from '../constants/margins';
 import { Spaces } from '../constants/spaces';
+import * as Linking from 'expo-linking';
+import { SocialUrls } from '../constants/urls';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Screens } from '../constants/screens';
 
-const ProfilScreen = () => {
+interface ProfilScreenProps {
+  navigation: StackNavigationProp<any>;
+}
+
+const ProfilScreen = ({ navigation }: ProfilScreenProps) => {
+  const onEditPress = () => {
+    navigation.navigate(Screens.Edit);
+  };
+  const onTermsPress = () => {
+    navigation.navigate(Screens.Terms);
+  };
+  const onContactPress = () => {
+    navigation.navigate(Screens.Contact);
+  };
+  const onFacebookPress = () => {
+    Linking.openURL(SocialUrls.FACEBOOK);
+  };
+  const onInstagramPress = () => {
+    Linking.openURL(SocialUrls.INSTAGRAM);
+  };
+  const onYoutubePress = () => {
+    Linking.openURL(SocialUrls.YOUTUBE);
+  };
+
   return (
     <View style={styles.container}>
       <PagesTemplate title={'Profil'} canGoBack={false}>
@@ -50,13 +76,6 @@ const ProfilScreen = () => {
     </View>
   );
 };
-
-const onEditPress = () => {};
-const onTermsPress = () => {};
-const onContactPress = () => {};
-const onFacebookPress = () => {};
-const onInstagramPress = () => {};
-const onYoutubePress = () => {};
 
 const styles = StyleSheet.create({
   container: {
