@@ -70,7 +70,7 @@ function LoginStackScreen() {
 function TabStackScreen() {
   return (
     <TabStack.Navigator
-      //initialRouteName={Screens.Home}
+      initialRouteName={Screens.Home}
       tabBarOptions={{
         labelStyle: styles.tabText,
         activeTintColor: Colors.yellow,
@@ -164,7 +164,7 @@ const App = () => {
 const styles = StyleSheet.create({
   tabText: {
     fontFamily: Fonts.Lato_regular,
-    fontSize: FontSizes.small
+    fontSize: FontSizes.extraSmall
   },
   tabBackground: {
     backgroundColor: Colors.darkGrey
