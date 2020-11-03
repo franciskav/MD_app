@@ -5,7 +5,7 @@ import PagesTemplate from '../components/pages/pagesTemplate';
 const TermsScreen = () => {
   return (
     <View style={styles.container}>
-      <PagesTemplate title={''} canGoBack={false}>
+      <PagesTemplate title={'Adatkezelési tájékoztató'} canGoBack={false}>
         <View></View>
       </PagesTemplate>
     </View>
