@@ -8,7 +8,9 @@ export const Fonts = {
 };
 
 export const FontSizes = {
-  small: 14,
-  normal: 18,
+  extraSmall: 14,
+  small: 15,
+  normal: 20,
+  medium: 22,
   large: 25
 };
