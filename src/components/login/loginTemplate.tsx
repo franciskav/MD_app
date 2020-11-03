@@ -7,6 +7,7 @@ import { Icons } from '../../constants/icons';
 import { Fonts, FontSizes } from '../../constants/fonts';
 import { ScrollView } from 'react-native-gesture-handler';
 import RoundButton from '../button/roundButton';
+import Constants from 'expo-constants';
 
 interface Props {
   buttonText: string;
@@ -65,7 +66,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.darkGrey,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    marginTop: Constants.statusBarHeight
   },
   simpleText: {
     color: Colors.white,
