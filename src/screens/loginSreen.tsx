@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LoginTemplate from '../components/login/loginTemplate';
-import UnderlineTextInput from '../components/text-input/underlineTextInput';
+import LightTextInput from '../components/text-input/lightTextInput';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Margins } from '../constants/margins';
 import { Screens } from '../constants/screens';
@@ -34,14 +34,14 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
       onPressButton={onLoginPress}
       onPressChange={onRegisterPress}
     >
-      <UnderlineTextInput
+      <LightTextInput
         placeholder={'Email cím'}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setEmail}
         keyboardType={'email-address'}
         style={[Margins.mbNormal]}
       />
-      <UnderlineTextInput
+      <LightTextInput
         placeholder={'Jelszó'}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setPassword}

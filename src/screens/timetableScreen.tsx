@@ -16,7 +16,7 @@ const TimetableScreen = () => {
     'Asztória Stúdió\nB terem'
   ];
 
-  const data = [
+  const data: DropdownData[] = [
     {
       label: 'Hétfő & Szerda',
       value: 0
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   dropdown: {
     backgroundColor: Colors.black,
     fontFamily: Fonts.Lato_bold,
-    fontSize: FontSizes.normal,
+    fontSize: FontSizes.medium,
     paddingLeft: 10
   },
   dropdownContainer: {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   dropdownText: {
     fontFamily: Fonts.Lato_bold,
-    fontSize: FontSizes.normal
+    fontSize: FontSizes.medium
   }
 });
 

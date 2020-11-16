@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LoginTemplate from '../components/login/loginTemplate';
-import UnderlineTextInput from '../components/text-input/underlineTextInput';
+import LightTextInput from '../components/text-input/lightTextInput';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Margins } from '../constants/margins';
 import { Screens } from '../constants/screens';
@@ -48,47 +48,47 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
       onPressButton={onSignupPress}
       onPressChange={onLoginPress}
     >
-      <UnderlineTextInput
+      <LightTextInput
         placeholder={'Név'}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setName}
         style={[Margins.mbNormal]}
       />
-      <UnderlineTextInput
+      <LightTextInput
         placeholder={'Email'}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setEmail}
         keyboardType={'email-address'}
         style={[Margins.mbNormal]}
       />
-      <UnderlineTextInput
+      <LightTextInput
         placeholder={'Jelszó'}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setPassword}
         secureTextEntry={true}
         style={[Margins.mbNormal]}
       />
-      <UnderlineTextInput
+      <LightTextInput
         placeholder={'Jelszó újra'}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setPassword_2}
         secureTextEntry={true}
         style={[Margins.mbNormal]}
       />
-      <UnderlineTextInput
+      <LightTextInput
         placeholder={'Telefonszám'}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setPhone}
         keyboardType={'phone-pad'}
         style={[Margins.mbNormal]}
       />
-      <UnderlineTextInput
+      <LightTextInput
         placeholder={'Lakcím'}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setAddress}
         style={[Margins.mbNormal]}
       />
-      <View style={{ alignItems: 'flex-start' }}>
+      <View>
         <CheckboxRow
           checked={termsChecked}
           title={
