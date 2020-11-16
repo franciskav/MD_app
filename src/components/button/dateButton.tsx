@@ -17,7 +17,7 @@ interface Props {
   disabled?: boolean;
 }
 
-const DarkButton = ({ onPress, style, text, disabled }: Props) => {
+const DateButton = ({ onPress, style, text, disabled }: Props) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -30,27 +30,29 @@ const DarkButton = ({ onPress, style, text, disabled }: Props) => {
 };
 
 const BTN_HEIGHT = 50;
-const BTN_WIDTH = 380;
+const BTN_WIDTH = 120;
 
 const styles = StyleSheet.create({
   buttonContainer: {
+    borderRadius: BTN_HEIGHT / 5,
+    borderWidth: 2,
+    borderColor: Colors.black,
     height: BTN_HEIGHT,
-    maxWidth: BTN_WIDTH,
-    backgroundColor: Colors.darkGrey,
+    minWidth: BTN_WIDTH,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: Spaces.normal,
-    shadowColor: Colors.middleGrey,
-    shadowOpacity: 1,
-    shadowRadius: 1,
-    shadowOffset: { height: 1, width: 1 },
-    elevation: 2
+    paddingHorizontal: Spaces.normal
+    // shadowColor: Colors.middleGrey,
+    // shadowOpacity: 1,
+    // shadowRadius: 1,
+    // shadowOffset: { height: 1, width: 1 },
+    // elevation: 2
   },
   buttonText: {
-    color: Colors.yellow,
-    fontFamily: Fonts.Lato_bold,
+    color: Colors.black,
+    fontFamily: Fonts.Lato_regular,
     fontSize: FontSizes.medium
   }
 });
 
-export default DarkButton;
+export default DateButton;

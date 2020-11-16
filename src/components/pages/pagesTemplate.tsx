@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight
   },
   backgroundView: {
-    backgroundColor: Colors.extraLightGrey,
+    backgroundColor: Colors.white,
     flex: 1
   }
 });

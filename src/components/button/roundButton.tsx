@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: Colors.black,
     fontFamily: Fonts.Lato_bold,
-    fontSize: FontSizes.normal
+    fontSize: FontSizes.medium
   }
 });
 

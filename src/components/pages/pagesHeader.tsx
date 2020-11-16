@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontFamily: Fonts.Lato_bold,
-    fontSize: FontSizes.normal,
+    fontSize: FontSizes.medium,
     color: Colors.white
   }
 });

@@ -35,12 +35,12 @@ const styles = StyleSheet.create({
     marginRight: 0
   },
   selectedButton: {
-    backgroundColor: Colors.extraLightGrey,
-    borderBottomColor: Colors.lightGrey,
+    backgroundColor: Colors.white,
+    borderBottomColor: Colors.extraLightGrey,
     borderBottomWidth: 3
   },
   innerBorder: {
-    color: Colors.extraLightGrey
+    color: Colors.white
   },
   text: {
     color: Colors.darkGrey,

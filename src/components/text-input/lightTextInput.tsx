@@ -7,7 +7,7 @@ interface Props {
   ref: string;
 }
 
-const UnderlineTextInput = (props: TextInputProps) => {
+const LightTextInput = (props: TextInputProps) => {
   return <TextInput {...props} style={[styles.textInput, props.style]} />;
 };
 
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default UnderlineTextInput;
+export default LightTextInput;

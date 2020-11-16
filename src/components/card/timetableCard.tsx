@@ -31,6 +31,7 @@ const TimetableCard = ({
   return (
     <TouchableOpacity
       onPress={onPress}
+      onLongPress={onLongPress}
       style={[styles.buttonContainer, style]}
       disabled={disabled}
     >
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     maxWidth: BTN_MAX_WIDTH,
     width: '90%',
-    backgroundColor: Colors.lightGrey,
+    backgroundColor: Colors.extraLightGrey,
     justifyContent: 'center',
     paddingHorizontal: Spaces.normal,
     paddingVertical: Spaces.medium,
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
   timeText: {
     color: Colors.black,
     fontFamily: Fonts.Lato_bold,
-    fontSize: FontSizes.normal
+    fontSize: FontSizes.medium
   },
   descriptionText: {
     color: Colors.black,
