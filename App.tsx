@@ -37,6 +37,8 @@ import ContactScreen from './src/screens/contactScreen';
 import EditScreen from './src/screens/editScreen';
 import TermsScreen from './src/screens/termsScreen';
 import NewsDetailsScreen from './src/screens/newsDetailsScreen';
+import { configureFirebase } from './config/firebaseconfig';
+import firebase from 'firebase';
 
 const RootStack = createStackNavigator();
 const LoginStack = createStackNavigator();
@@ -134,6 +136,11 @@ function TabStackScreen() {
 
 const App = () => {
   const store = configureStore();
+
+  configureFirebase();
+
+  var database = firebase.database();
+  var storage = firebase.storage();
 
   let [fonstLoaded] = useFonts({
     Lato_400Regular,
