@@ -59,14 +59,23 @@ const HomeScreen = ({ navigation }: LoginScreenProps) => {
     dispatch(getNews());
   };
 
-  const onItemPress = () => {
-    navigation.navigate(Screens.NewsDetails);
+  const onItemPress = (id: string) => {
+    const item = news.find(n => n.id === id);
+    navigation.navigate(Screens.NewsDetails, { item });
   };
 
+  //console.log(Date.UTC(2020, 12, 31));
+
   const renderItem = (itemInfo: ListRenderItemInfo<any>) => {
-    const { date, title, image } = itemInfo.item;
+    const { id, date, title, image } = itemInfo.item;
     return (
-      <NewsCard onPress={onItemPress} date={date} title={title} image={image} />
+      <NewsCard
+        onPress={onItemPress}
+        id={id}
+        date={date}
+        title={title}
+        image={image}
+      />
     );
   };
 

@@ -1,8 +1,7 @@
 export interface NewsResponse {
   id: string | null;
   title: string;
-  //FIXME: string => date
-  date: string;
+  date: Date;
   details: string;
   image: string;
 }

@@ -16,7 +16,8 @@ import { Spaces } from '../../constants/spaces';
 import { Margins } from '../../constants/margins';
 
 interface Props {
-  onPress: () => void;
+  onPress: (id: string) => void;
+  id: string;
   style?: StyleProp<ViewStyle>;
   date: string;
   title: string;
@@ -24,10 +25,23 @@ interface Props {
   disabled?: boolean;
 }
 
-const NewsCard = ({ onPress, style, date, title, image, disabled }: Props) => {
+const NewsCard = ({
+  onPress,
+  id,
+  style,
+  date,
+  title,
+  image,
+  disabled
+}: Props) => {
+  const onPressed = () => {
+    if (onPress) {
+      onPress(id);
+    }
+  };
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={onPressed}
       style={[styles.buttonContainer, style]}
       disabled={disabled}
     >
