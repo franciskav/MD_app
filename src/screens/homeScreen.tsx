@@ -1,11 +1,21 @@
 import { StackNavigationProp } from '@react-navigation/stack';
-import React from 'react';
-import { View, Text, StyleSheet, ListRenderItemInfo } from 'react-native';
+import React, { useEffect } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ListRenderItemInfo,
+  RefreshControl
+} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import NewsCard from '../components/card/newsCard';
 import PagesTemplate from '../components/pages/pagesTemplate';
 import { Screens } from '../constants/screens';
 import { Spaces } from '../constants/spaces';
+import { useSelector, useDispatch } from 'react-redux';
+import { IApplicationState } from '../../store';
+import { getNews } from '../store/news/news.actions';
+import { News } from '../model/news/news';
 
 const mock = [
   {
@@ -35,6 +45,20 @@ interface LoginScreenProps {
 }
 
 const HomeScreen = ({ navigation }: LoginScreenProps) => {
+  const { news, error, isLoading } = useSelector(
+    (state: IApplicationState) => state.app.news
+  );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getNews());
+  }, [dispatch]);
+
+  const refreshNews = () => {
+    dispatch(getNews());
+  };
+
   const onItemPress = () => {
     navigation.navigate(Screens.NewsDetails);
   };
@@ -50,15 +74,23 @@ const HomeScreen = ({ navigation }: LoginScreenProps) => {
     return <View style={{ height: Spaces.extraLarge }} />;
   };
 
+  const keyExtractor = (item: News, index: number) => {
+    return item.id + index;
+  };
+
   return (
     <View style={styles.container}>
       <PagesTemplate title={'Hírek és események'} canGoBack={false}>
         <FlatList
-          data={mock}
+          keyExtractor={(item, index) => keyExtractor(item, index)}
+          data={news}
           renderItem={renderItem}
           ItemSeparatorComponent={separatorComponent}
           style={styles.flatlist}
           contentContainerStyle={styles.flatlistContent}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={refreshNews} />
+          }
         />
       </PagesTemplate>
     </View>
