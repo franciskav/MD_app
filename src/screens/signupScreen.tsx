@@ -5,10 +5,14 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Margins } from '../constants/margins';
 import { Screens } from '../constants/screens';
 import { Colors } from '../constants/colors';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import CheckboxRow from '../components/checkbox/checkboxRow';
 import { View } from 'react-native';
+import { IApplicationState } from '../../store';
+import { postSignup } from '../store/signup/signup.actions';
+import { Alert } from 'react-native';
+import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>;
@@ -24,13 +28,37 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
   const [termsChecked, setTermsChecked] = useState(false);
   const [dataChecked, setDataChecked] = useState(false);
 
+  const { signup, error, isLoading } = useSelector(
+    (state: IApplicationState) => state.app.signup
+  );
+
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    failAction();
+  }, [error]);
+
   const onSignupPress = () => {
-    navigation.replace(Screens.Home);
+    dispatch(
+      postSignup(
+        {
+          name: name,
+          email: email,
+          password: password,
+          phoneNumber: phone,
+          address: address
+        },
+        successAction
+      )
+    );
   };
   const successAction = () => {
-    //navigation.replace(Screens.Main)
+    navigation.replace(Screens.Home);
+  };
+  const failAction = () => {
+    if (error) {
+      Alert.alert('Hiba', error);
+    }
   };
   const onLoginPress = () => {
     navigation.replace(Screens.Login);
@@ -104,6 +132,7 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
           onPress={onDataPressed}
         />
       </View>
+      {isLoading && <MDActivityIndicator />}
     </LoginTemplate>
   );
 };
