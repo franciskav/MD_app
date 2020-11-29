@@ -20,7 +20,7 @@ interface Props {
   style?: StyleProp<ViewStyle>;
   date: string;
   title: string;
-  image: ImageSourcePropType;
+  image: string;
   disabled?: boolean;
 }
 
@@ -34,7 +34,10 @@ const NewsCard = ({ onPress, style, date, title, image, disabled }: Props) => {
       <View style={[styles.leftTop, styles.shadow]}></View>
       <View style={[styles.rightBottom, styles.shadow]}></View>
       <View style={[styles.contentContainer, styles.shadow]}>
-        <Image style={[styles.image, Margins.mbNormal]} source={image} />
+        <Image
+          style={[styles.image, Margins.mbNormal]}
+          source={{ uri: image }}
+        />
         <View style={styles.timeBorder}>
           <Text style={[styles.timeText]}>{date}</Text>
         </View>
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
   image: {
     width: IMAGE_WIDTH,
     height: IMAGE_WIDTH * RATIO,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     alignSelf: 'center'
   }
 });
