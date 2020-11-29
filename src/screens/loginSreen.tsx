@@ -5,8 +5,14 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Margins } from '../constants/margins';
 import { Screens } from '../constants/screens';
 import { Colors } from '../constants/colors';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { IApplicationState } from '../../store';
+import { ActivityIndicator, Alert } from 'react-native';
+import { postLogin } from '../store/login/login.actions';
+import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
+import { postLogout } from '../store/logout/logout.actions';
 import AsyncStorage from '@react-native-community/async-storage';
+import { AsyncStorageKeys } from '../constants/asyncStorageKeys';
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>;
@@ -16,13 +22,26 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const { login, error, isLoading } = useSelector(
+    (state: IApplicationState) => state.app.login
+  );
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    failAction();
+  }, [error]);
+
   const onLoginPress = () => {
-    navigation.replace(Screens.Home);
+    dispatch(postLogin({ email: email, password: password }, successAction));
+    //console.log(AsyncStorage.getItem(AsyncStorageKeys.UID));
   };
   const successAction = () => {
-    //navigation.replace(Screens.Main)
+    navigation.replace(Screens.Home);
+  };
+  const failAction = () => {
+    if (error) {
+      Alert.alert('Hiba', error);
+    }
   };
   const onRegisterPress = () => {
     navigation.replace(Screens.SignUp);
@@ -48,6 +67,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
         secureTextEntry={true}
         style={[Margins.mbNormal]}
       />
+      {isLoading && <MDActivityIndicator />}
     </LoginTemplate>
   );
 };
