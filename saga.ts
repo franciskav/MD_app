@@ -1,4 +1,5 @@
 import { all } from 'redux-saga/effects';
+import { applySaga } from './src/store/apply/apply.saga';
 import { loginSaga } from './src/store/login/login.saga';
 import { logoutSaga } from './src/store/logout/logout.saga';
 import { newsSaga } from './src/store/news/news.saga';
@@ -11,6 +12,7 @@ export function* rootSaga() {
     signupSaga(),
     logoutSaga(),
     newsSaga(),
-    timetableSaga()
+    timetableSaga(),
+    applySaga()
   ]);
 }

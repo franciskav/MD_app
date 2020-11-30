@@ -1,4 +1,6 @@
 import { AnyAction, combineReducers, Reducer } from 'redux';
+import { applyReducer } from './src/store/apply/apply.reducer';
+import { ApplyStore } from './src/store/apply/apply.store';
 import { loginReducer } from './src/store/login/login.reducer';
 import { LoginStore } from './src/store/login/login.store';
 import { logoutReducer } from './src/store/logout/logout.reducer';
@@ -16,6 +18,7 @@ export interface IAppStore {
   logout: LogoutStore;
   news: NewsStore;
   timetable: TimetableStore;
+  apply: ApplyStore;
 }
 
 export interface IApplicationState {
@@ -37,7 +40,8 @@ export const appReducer = combineReducers<IAppStore>({
   signup: signupReducer,
   logout: logoutReducer,
   news: newsReducer,
-  timetable: timetableReducer
+  timetable: timetableReducer,
+  apply: applyReducer
 });
 
 export const appRootReducer: Reducer<IAppStore> = (

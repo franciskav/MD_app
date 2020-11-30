@@ -30,7 +30,6 @@ function* postLoginActionWatcher(action: PostLoginRequestAction) {
     action.successAction();
   } catch (error) {
     console.log('bejelentkezés hiba');
-    console.log(error);
     console.log(error.code);
     yield put(postLoginFailActionCreator(error.code));
     //action.failAction();
