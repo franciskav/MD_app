@@ -19,14 +19,9 @@ interface LoginScreenProps {
 }
 
 const SignupScreen = ({ navigation }: LoginScreenProps) => {
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password_2, setPassword_2] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [termsChecked, setTermsChecked] = useState(false);
-  const [dataChecked, setDataChecked] = useState(false);
 
   const { signup, error, isLoading } = useSelector(
     (state: IApplicationState) => state.app.signup
@@ -42,18 +37,15 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
     dispatch(
       postSignup(
         {
-          name: name,
           email: email,
-          password: password,
-          phoneNumber: phone,
-          address: address
+          password: password
         },
         successAction
       )
     );
   };
   const successAction = () => {
-    navigation.replace(Screens.Home);
+    navigation.replace(Screens.Data);
   };
   const failAction = () => {
     if (error) {
@@ -63,12 +55,6 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
   const onLoginPress = () => {
     navigation.replace(Screens.Login);
   };
-  const onTermsPressed = () => {
-    setTermsChecked(!termsChecked);
-  };
-  const onDataPressed = () => {
-    setDataChecked(!dataChecked);
-  };
   return (
     <LoginTemplate
       buttonText={'Regisztráció'}
@@ -76,12 +62,6 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
       onPressButton={onSignupPress}
       onPressChange={onLoginPress}
     >
-      <LightTextInput
-        placeholder={'Név'}
-        placeholderTextColor={Colors.lightGrey}
-        onChangeText={setName}
-        style={[Margins.mbNormal]}
-      />
       <LightTextInput
         placeholder={'Email'}
         placeholderTextColor={Colors.lightGrey}
@@ -103,35 +83,7 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
         secureTextEntry={true}
         style={[Margins.mbNormal]}
       />
-      <LightTextInput
-        placeholder={'Telefonszám'}
-        placeholderTextColor={Colors.lightGrey}
-        onChangeText={setPhone}
-        keyboardType={'phone-pad'}
-        style={[Margins.mbNormal]}
-      />
-      <LightTextInput
-        placeholder={'Lakcím'}
-        placeholderTextColor={Colors.lightGrey}
-        onChangeText={setAddress}
-        style={[Margins.mbNormal]}
-      />
-      <View>
-        <CheckboxRow
-          checked={termsChecked}
-          title={
-            'Elolvastam és elfogadom az Adatkezelési Tájékoztatóban foglaltakat'
-          }
-          onPress={onTermsPressed}
-        />
-        <CheckboxRow
-          checked={dataChecked}
-          title={
-            'Hozzájárulok a fenti adataim Adatkezelő által történő kezeléséhez.'
-          }
-          onPress={onDataPressed}
-        />
-      </View>
+
       {isLoading && <MDActivityIndicator />}
     </LoginTemplate>
   );

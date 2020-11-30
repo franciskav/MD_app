@@ -39,6 +39,7 @@ import TermsScreen from './src/screens/termsScreen';
 import NewsDetailsScreen from './src/screens/newsDetailsScreen';
 import { configureFirebase } from './config/firebaseconfig';
 import firebase from 'firebase';
+import DataScreen from './src/screens/dataScreen';
 
 const RootStack = createStackNavigator();
 const LoginStack = createStackNavigator();
@@ -64,6 +65,7 @@ function LoginStackScreen() {
     <LoginStack.Navigator screenOptions={{ headerShown: false }}>
       <LoginStack.Screen name={Screens.Login} component={LoginScreen} />
       <LoginStack.Screen name={Screens.SignUp} component={SignupScreen} />
+      <LoginStack.Screen name={Screens.Data} component={DataScreen} />
       <LoginStack.Screen name={Screens.Home} component={TabStackScreen} />
     </LoginStack.Navigator>
   );

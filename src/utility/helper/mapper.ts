@@ -1,3 +1,5 @@
+import { Data } from '../../model/data/data';
+import { DataResponse } from '../../model/data/dataResponse';
 import { News } from '../../model/news/news';
 import { NewsResponse } from '../../model/news/newsResponse';
 import { Timetable } from '../../model/timetable/timetable';
@@ -83,4 +85,13 @@ export const timetableResponseToTimetable = (
     });
   });
   return timetable;
+};
+
+export const dataResponseToData = (dataResponse: DataResponse): Data => {
+  const data = {
+    name: dataResponse.name,
+    address: dataResponse.address,
+    phone: dataResponse.phone
+  };
+  return data;
 };

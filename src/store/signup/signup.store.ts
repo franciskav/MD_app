@@ -8,10 +8,7 @@ export interface SignupStore {
 
 const initSignup: SignupRequest = {
   email: '',
-  password: '',
-  address: '',
-  name: '',
-  phoneNumber: ''
+  password: ''
 };
 
 export const initialSignupStore: SignupStore = {

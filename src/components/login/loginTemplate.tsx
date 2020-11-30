@@ -11,9 +11,9 @@ import Constants from 'expo-constants';
 
 interface Props {
   buttonText: string;
-  change: string;
+  change?: string;
   onPressButton: () => void;
-  onPressChange: () => void;
+  onPressChange?: () => void;
   children: React.ReactNode;
 }
 
