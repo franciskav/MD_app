@@ -13,6 +13,7 @@ import { IApplicationState } from '../../store';
 import { postSignup } from '../store/signup/signup.actions';
 import { Alert } from 'react-native';
 import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
+import { ErrorCode } from '../constants/localization';
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>;
@@ -49,7 +50,7 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
   };
   const failAction = () => {
     if (error) {
-      Alert.alert('Hiba', error);
+      Alert.alert('Hiba', ErrorCode[error]);
     }
   };
   const onLoginPress = () => {

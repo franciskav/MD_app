@@ -13,6 +13,7 @@ import MDActivityIndicator from '../components/activityIndicator/mdActivityIndic
 import { postLogout } from '../store/logout/logout.actions';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AsyncStorageKeys } from '../constants/asyncStorageKeys';
+import { ErrorCode } from '../constants/localization';
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>;
@@ -40,7 +41,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
   };
   const failAction = () => {
     if (error) {
-      Alert.alert('Hiba', error);
+      Alert.alert('Hiba', ErrorCode[error]);
     }
   };
   const onRegisterPress = () => {
