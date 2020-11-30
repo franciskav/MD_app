@@ -60,7 +60,7 @@ const HomeScreen = ({ navigation }: LoginScreenProps) => {
   };
 
   const onItemPress = (id: string) => {
-    const item = news.find(n => n.id === id);
+    const item = news.find((n: News) => n.id === id);
     navigation.navigate(Screens.NewsDetails, { item });
   };
 
@@ -97,6 +97,7 @@ const HomeScreen = ({ navigation }: LoginScreenProps) => {
           ItemSeparatorComponent={separatorComponent}
           style={styles.flatlist}
           contentContainerStyle={styles.flatlistContent}
+          showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl refreshing={isLoading} onRefresh={refreshNews} />
           }
