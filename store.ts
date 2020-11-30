@@ -7,12 +7,15 @@ import { newsReducer } from './src/store/news/news.reducer';
 import { NewsStore } from './src/store/news/news.store';
 import { signupReducer } from './src/store/signup/signup.reducer';
 import { SignupStore } from './src/store/signup/signup.store';
+import { timetableReducer } from './src/store/timetable/timetable.reducer';
+import { TimetableStore } from './src/store/timetable/timetable.store';
 
 export interface IAppStore {
   login: LoginStore;
   signup: SignupStore;
   logout: LogoutStore;
   news: NewsStore;
+  timetable: TimetableStore;
 }
 
 export interface IApplicationState {
@@ -33,7 +36,8 @@ export const appReducer = combineReducers<IAppStore>({
   login: loginReducer,
   signup: signupReducer,
   logout: logoutReducer,
-  news: newsReducer
+  news: newsReducer,
+  timetable: timetableReducer
 });
 
 export const appRootReducer: Reducer<IAppStore> = (
