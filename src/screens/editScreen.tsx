@@ -10,6 +10,7 @@ import { Colors } from '../constants/colors';
 import { Margins } from '../constants/margins';
 import RoundButton from '../components/button/roundButton';
 import { Spaces } from '../constants/spaces';
+import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
 
 interface EditScreenProps {
   navigation: StackNavigationProp<any>;
@@ -86,6 +87,7 @@ const EditScreen = ({ navigation }: EditScreenProps) => {
           <RoundButton onPress={onSendPress} text={'Küldés'} />
         </View>
       </PagesTemplate>
+      {isLoading && <MDActivityIndicator />}
     </View>
   );
 };
