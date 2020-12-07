@@ -110,7 +110,8 @@ const TimetableScreen = () => {
             textColor={Colors.white}
             itemColor={Colors.lightGrey}
             pickerStyle={{ backgroundColor: Colors.black }}
-            lineWidth={0}
+            //TODO: fix it
+            //lineWidth={0}
             style={styles.dropdown}
             itemTextStyle={styles.dropdownText}
           />
