@@ -107,7 +107,7 @@ const renderDropdown = (
       value={value}
       onChangeText={onChangeText}
       containerStyle={styles.dropdownContainer}
-      style={styles.dropdown}
+      //style={styles.dropdown}
       itemTextStyle={styles.dropdownText}
     />
   );

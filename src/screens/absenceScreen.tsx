@@ -4,7 +4,6 @@ import PagesTemplate from '../components/pages/pagesTemplate';
 import { Colors } from '../constants/colors';
 import { Fonts, FontSizes } from '../constants/fonts';
 import { Margins } from '../constants/margins';
-import { Dropdown } from 'react-native-material-dropdown';
 import CheckboxRow from '../components/checkbox/checkboxRow';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Spaces } from '../constants/spaces';
@@ -34,12 +33,12 @@ const AbsenceScreen = () => {
   const onToButtonPress = () => {
     setShowTo(!showTo);
   };
-  const onFromChange = (event, selectedDate) => {
+  const onFromChange = (_event: any, selectedDate: any) => {
     const currentDate = selectedDate || fromDate;
     setShowFrom(Platform.OS === 'ios');
     setFromDate(currentDate);
   };
-  const onToChange = (event, selectedDate) => {
+  const onToChange = (_event: any, selectedDate: any) => {
     const currentDate = selectedDate || toDate;
     setShowTo(Platform.OS === 'ios');
     setToDate(currentDate);
@@ -273,45 +272,45 @@ const times: Times[] = [
 const danceStyles: DropdownData[] = [
   {
     label: 'Hip Hop',
-    value: 0
+    value: '0'
   },
   {
     label: 'Vogue',
-    value: 1
+    value: '1'
   },
   {
     label: 'Mindkettő',
-    value: 2
+    value: '2'
   }
 ];
 
 const places: DropdownData[] = [
   {
     label: 'Astória Stúdió',
-    value: 0
+    value: '0'
   },
   {
     label: 'Arany János Stúdió',
-    value: 1
+    value: '1'
   }
 ];
 
 const startDates: DropdownData[] = [
   {
     label: 'Mai napon',
-    value: 0
+    value: '0'
   },
   {
     label: 'Ezen a héten',
-    value: 1
+    value: '1'
   },
   {
     label: 'Jövő héten',
-    value: 2
+    value: '2'
   },
   {
     label: 'Jövő hónaptól',
-    value: 3
+    value: '3'
   }
 ];
 
