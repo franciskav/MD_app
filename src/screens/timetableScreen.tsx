@@ -15,6 +15,7 @@ import { Class, Day, Place, Timetable } from '../model/timetable/timetable';
 import RoundButton from '../components/button/roundButton';
 import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
 import { Margins } from '../constants/margins';
+import TeachersTemplate from '../components/modal/teachersTemplate';
 
 const TimetableScreen = () => {
   const { timetable, error, isLoading } = useSelector(
@@ -23,6 +24,7 @@ const TimetableScreen = () => {
 
   const [place, setPlace] = useState(0);
   const [day, setDay] = useState('monday_wednesday');
+  const [showTeacher, setShowTeacher] = useState(false);
 
   const buttons = [
     'Arany János\nStúdió',
@@ -53,11 +55,19 @@ const TimetableScreen = () => {
     dispatch(getTimetable());
   }, [dispatch]);
 
+  const onPressCard = () => {
+    setShowTeacher(!showTeacher);
+  };
+
+  const onPressTecher = () => {
+    setShowTeacher(!showTeacher);
+  };
+
   const renderItem = (itemInfo: ListRenderItemInfo<any>) => {
     const { time, agelimit, teacher, description } = itemInfo.item;
     return (
       <TimetableCard
-        onPress={() => {}}
+        onPress={onPressCard}
         time={time}
         description={description}
         teacher={teacher}
@@ -81,8 +91,6 @@ const TimetableScreen = () => {
   const onRefresh = () => {
     dispatch(getTimetable());
   };
-
-  const timetable2: Timetable = timetable;
 
   return (
     <View style={styles.container}>
@@ -110,8 +118,8 @@ const TimetableScreen = () => {
             <FlatList
               style={styles.flatlist}
               data={
-                timetable2.places[place].days[
-                  timetable2.places[place].days.findIndex(d => d.day === day)
+                timetable.places[place].days[
+                  timetable.places[place].days.findIndex(d => d.day === day)
                 ].classes
               }
               renderItem={renderItem}
@@ -131,6 +139,9 @@ const TimetableScreen = () => {
           )}
         </View>
       </PagesTemplate>
+      {showTeacher && (
+        <TeachersTemplate onPress={onPressTecher} show={showTeacher} />
+      )}
       {isLoading && <MDActivityIndicator />}
     </View>
   );
