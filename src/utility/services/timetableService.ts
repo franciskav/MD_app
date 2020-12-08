@@ -18,6 +18,7 @@ class TimetableService {
       .ref('timetable')
       .orderByChild('to')
       .startAt(Date.now())
+      .limitToFirst(1)
       .once('value', snapshot =>
         snapshot.forEach(semester => {
           var places: Place[] = [];
