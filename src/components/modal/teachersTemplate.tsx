@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Modal, Text } from 'react-native';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, View, Modal, Text, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { Colors } from '../../constants/colors';
 import { Fonts, FontSizes } from '../../constants/fonts';
 import { Margins } from '../../constants/margins';
@@ -15,7 +15,6 @@ interface Props {
 
 const TeachersTemplate = ({ onPress, show, title, description }: Props) => {
   const onPressed = () => {
-    //console.log('press');
     if (onPress) {
       onPress(show);
     }
@@ -29,7 +28,11 @@ const TeachersTemplate = ({ onPress, show, title, description }: Props) => {
           showsVerticalScrollIndicator={false}
         >
           <TouchableOpacity
-            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
             onPress={onPressed}
           >
             <Text style={[styles.titleText, Margins.mbExtraLarge]}>
