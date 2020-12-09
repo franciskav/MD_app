@@ -5,6 +5,25 @@ import { NewsResponse } from '../../model/news/newsResponse';
 import { Timetable } from '../../model/timetable/timetable';
 import { TimetableResponse } from '../../model/timetable/timetableResponse';
 
+const MONTH = [
+  '',
+  'január',
+  'február',
+  'március',
+  'április',
+  'május',
+  'június',
+  'július',
+  'augusztus',
+  'szeptember',
+  'október',
+  'november',
+  'december'
+];
+
+const places = ['arany', 'astoria_a', 'astoria_b'];
+const days = ['monday_wednesday', 'tuesday_thursday', 'friday'];
+
 export const newsResponseToNews = (newsResponse: NewsResponse[]): News[] => {
   const news: News[] = newsResponse.map(n => {
     return {
@@ -25,25 +44,6 @@ const dateHelper = (date: Date) => {
   const day = localDate.getDate();
   return `${year}. ${month.toString().toUpperCase()} ${day}.`;
 };
-
-const MONTH = [
-  '',
-  'január',
-  'február',
-  'március',
-  'április',
-  'május',
-  'június',
-  'július',
-  'augusztus',
-  'szeptember',
-  'október',
-  'november',
-  'december'
-];
-
-const places = ['arany', 'astoria_a', 'astoria_b'];
-const days = ['monday_wednesday', 'tuesday_thursday', 'friday'];
 
 export const timetableResponseToTimetable = (
   timetableResponse: TimetableResponse

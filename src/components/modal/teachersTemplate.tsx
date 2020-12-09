@@ -3,6 +3,7 @@ import { StyleSheet, View, Modal, Text, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Colors } from '../../constants/colors';
 import { Fonts, FontSizes } from '../../constants/fonts';
+import { Teachers } from '../../constants/localization';
 import { Margins } from '../../constants/margins';
 import { Spaces } from '../../constants/spaces';
 
@@ -36,13 +37,9 @@ const TeachersTemplate = ({ onPress, show, title, description }: Props) => {
             onPress={onPressed}
           >
             <Text style={[styles.titleText, Margins.mbExtraLarge]}>
-              {'Tillinger Alex'}
+              {Teachers['Alex'].name}
             </Text>
-            <Text style={styles.text}>
-              {
-                'Alex a magyar táncos világ egyik legkiemelkedőbb fiatal tehetsége. Számtalanszor ért el dobogós helyezést versenyeken. Csapat szinten, és egyéniben egyaránt. Nem utolsó sorban Alex egyike azon kevés táncosoknak, akik magas szinten tudnak freestylet és koreográfiát is előadni. Tánciskolánkban ő rendelkezik a legmélyebb tudással az oldschool-hip-hop alapjai terén. Fontos számára, hogy megtanítsa diákjainak a hip-hopot a legmélyebb gyökereitől.\n\nReferencia:\nHuawei Flashmob Show\nOrfeum Hollywood show\nStrand Festival Grand Opening show\nNagy Duett 2017-2018\nCsak Show és más semmi 2018\nPassió XXI 2017\nRossmann 25. birthday show 2018\n\nTáncban elért eredmények:\nHip Hop International small group 2nd place\nHip Hop International megacrew 1st place\nRed Bull hip-hop dance battle 1st place\nFusion dance contest small group 1st place\nFusion dance contest duo 2nd place\nFusion dance contest solo 4th place\nWorld of dance Eindhoven 9th place'
-              }
-            </Text>
+            <Text style={styles.text}>{Teachers['Alex'].description}</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>
