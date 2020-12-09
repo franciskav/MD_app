@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { postLogout } from '../store/logout/logout.actions';
 import { IApplicationState } from '../../store';
 import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
+import { Strings } from '../constants/localization';
 
 interface ProfilScreenProps {
   navigation: StackNavigationProp<any>;
@@ -60,26 +61,26 @@ const ProfilScreen = ({ navigation }: ProfilScreenProps) => {
   };
   const failAction = () => {
     if (error) {
-      Alert.alert('Hiba', 'Sikertelen kijelentkezés, próbálja meg újra');
+      Alert.alert(Strings.logoutFailure.title, Strings.logoutFailure.message);
     }
   };
 
   return (
     <View style={styles.container}>
-      <PagesTemplate title={'Profil'} canGoBack={false}>
+      <PagesTemplate title={Strings.profile} canGoBack={false}>
         <View style={[styles.container, styles.center]}>
           <DarkButton
-            text={'Adatok szerkesztése'}
+            text={Strings.editData}
             onPress={onEditPress}
             style={styles.darkButton}
           />
           <DarkButton
-            text={'Adatkezelési tájékoztató'}
+            text={Strings.privacyPolicy}
             onPress={onTermsPress}
             style={styles.darkButton}
           />
           <DarkButton
-            text={'Kapcsolat'}
+            text={Strings.contact}
             onPress={onContactPress}
             style={styles.darkButton}
           />
@@ -87,7 +88,7 @@ const ProfilScreen = ({ navigation }: ProfilScreenProps) => {
             style={[styles.logoutText, Margins.mtSmall]}
             onPress={onLogoutPress}
           >
-            {'Kijelentkezés'}
+            {Strings.logout}
           </Text>
         </View>
         <View style={[styles.row, styles.center, Margins.mbBig]}>

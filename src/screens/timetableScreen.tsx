@@ -16,6 +16,7 @@ import RoundButton from '../components/button/roundButton';
 import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
 import { Margins } from '../constants/margins';
 import TeachersTemplate from '../components/modal/teachersTemplate';
+import { Strings } from '../constants/localization';
 
 const TimetableScreen = () => {
   const { timetable, error, isLoading } = useSelector(
@@ -83,7 +84,7 @@ const TimetableScreen = () => {
   const emptyComponent = () => {
     return (
       <View>
-        <Text style={styles.emptyText}>{'Nincs az adott napon óra'}</Text>
+        <Text style={styles.emptyText}>{Strings.emptyTimetable}</Text>
       </View>
     );
   };
@@ -94,7 +95,7 @@ const TimetableScreen = () => {
 
   return (
     <View style={styles.container}>
-      <PagesTemplate title={'Órarend'} canGoBack={false}>
+      <PagesTemplate title={Strings.timetable} canGoBack={false}>
         <View style={[styles.center, styles.container]}>
           <MDButtonGroup
             onPress={setPlace}
@@ -132,9 +133,9 @@ const TimetableScreen = () => {
           {error && (
             <View style={[styles.errorView]}>
               <Text style={[styles.emptyText, Margins.mbMedium]}>
-                {'Hiba a betöltés közben'}
+                {Strings.timetableError}
               </Text>
-              <RoundButton text={'Újra'} onPress={onRefresh} />
+              <RoundButton text={Strings.again} onPress={onRefresh} />
             </View>
           )}
         </View>

@@ -13,7 +13,7 @@ import MDActivityIndicator from '../components/activityIndicator/mdActivityIndic
 import { postLogout } from '../store/logout/logout.actions';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AsyncStorageKeys } from '../constants/asyncStorageKeys';
-import { ErrorCode } from '../constants/localization';
+import { ErrorCode, Strings } from '../constants/localization';
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>;
@@ -49,20 +49,20 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
   };
   return (
     <LoginTemplate
-      buttonText={'Bejelentkezés'}
-      change={'Még nincs felhasználód? Regisztrálj!'}
+      buttonText={Strings.login}
+      change={Strings.goSingup}
       onPressButton={onLoginPress}
       onPressChange={onRegisterPress}
     >
       <LightTextInput
-        placeholder={'Email cím'}
+        placeholder={Strings.emailAddress}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setEmail}
         keyboardType={'email-address'}
         style={[Margins.mbNormal]}
       />
       <LightTextInput
-        placeholder={'Jelszó'}
+        placeholder={Strings.password}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setPassword}
         secureTextEntry={true}

@@ -13,7 +13,7 @@ import { IApplicationState } from '../../store';
 import { postSignup } from '../store/signup/signup.actions';
 import { Alert } from 'react-native';
 import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
-import { ErrorCode } from '../constants/localization';
+import { ErrorCode, Strings } from '../constants/localization';
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>;
@@ -58,27 +58,27 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
   };
   return (
     <LoginTemplate
-      buttonText={'Regisztráció'}
-      change={'Már van fiókod? Jelentkezz be!'}
+      buttonText={Strings.singup}
+      change={Strings.goSignup}
       onPressButton={onSignupPress}
       onPressChange={onLoginPress}
     >
       <LightTextInput
-        placeholder={'Email'}
+        placeholder={Strings.emailAddress}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setEmail}
         keyboardType={'email-address'}
         style={[Margins.mbNormal]}
       />
       <LightTextInput
-        placeholder={'Jelszó'}
+        placeholder={Strings.password}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setPassword}
         secureTextEntry={true}
         style={[Margins.mbNormal]}
       />
       <LightTextInput
-        placeholder={'Jelszó újra'}
+        placeholder={Strings.passwordAgain}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setPassword_2}
         secureTextEntry={true}

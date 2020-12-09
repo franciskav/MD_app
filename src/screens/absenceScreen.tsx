@@ -11,6 +11,7 @@ import DarkTextInput from '../components/text-input/darkTextInput';
 import RoundButton from '../components/button/roundButton';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DateButton from '../components/button/dateButton';
+import { Strings } from '../constants/localization';
 
 const AbsenceScreen = () => {
   const [evi, setEvi] = useState(false);
@@ -58,12 +59,12 @@ const AbsenceScreen = () => {
   };
   return (
     <View style={styles.container}>
-      <PagesTemplate title={'Hiányzás'} canGoBack={false}>
+      <PagesTemplate title={Strings.missing} canGoBack={false}>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.center}
         >
-          {renderLabel('Melyik órákról?')}
+          {renderLabel(Strings.fromWhichClasses)}
           {renderCheckBox(evi, 'Évi', onEviPress)}
           {renderCheckBox(alex, 'Alex', onAlexPress)}
           {renderCheckBox(dani, 'Dani', onDaniPress)}
@@ -113,10 +114,10 @@ const AbsenceScreen = () => {
             style={[styles.textInput, Margins.mtExtraLarge]}
             value={comment}
             onChangeText={setComment}
-            placeholder={'Megjegyzés'}
+            placeholder={Strings.comment}
           />
           <RoundButton
-            text={'Küldés'}
+            text={Strings.send}
             onPress={onSendPress}
             style={[Margins.mtBig, Margins.mbBig]}
           />
@@ -190,128 +191,5 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center'
   }
 });
-
-const times: Times[] = [
-  {
-    day: 'Hétfő & Szerda',
-    time: [
-      {
-        checked: false,
-        text: '15:00'
-      },
-      {
-        checked: false,
-        text: '16:00'
-      },
-      {
-        checked: false,
-        text: '17:00'
-      },
-      {
-        checked: false,
-        text: '18:00'
-      },
-      {
-        checked: false,
-        text: '19:10'
-      },
-      {
-        checked: false,
-        text: '20:15'
-      }
-    ]
-  },
-  {
-    day: 'Kedd & Csütörtök',
-    time: [
-      {
-        checked: false,
-        text: '15:00'
-      },
-      {
-        checked: false,
-        text: '16:00'
-      },
-      {
-        checked: false,
-        text: '17:00'
-      },
-      {
-        checked: false,
-        text: '18:00'
-      },
-      {
-        checked: false,
-        text: '19:10'
-      },
-      {
-        checked: false,
-        text: '20:15'
-      }
-    ]
-  },
-  {
-    day: 'Péntek',
-    time: [
-      {
-        checked: false,
-        text: '16:00'
-      },
-      {
-        checked: false,
-        text: '17:15'
-      },
-      {
-        checked: false,
-        text: '19:00'
-      }
-    ]
-  }
-];
-
-const danceStyles: DropdownData[] = [
-  {
-    label: 'Hip Hop',
-    value: '0'
-  },
-  {
-    label: 'Vogue',
-    value: '1'
-  },
-  {
-    label: 'Mindkettő',
-    value: '2'
-  }
-];
-
-const places: DropdownData[] = [
-  {
-    label: 'Astória Stúdió',
-    value: '0'
-  },
-  {
-    label: 'Arany János Stúdió',
-    value: '1'
-  }
-];
-
-const startDates: DropdownData[] = [
-  {
-    label: 'Mai napon',
-    value: '0'
-  },
-  {
-    label: 'Ezen a héten',
-    value: '1'
-  },
-  {
-    label: 'Jövő héten',
-    value: '2'
-  },
-  {
-    label: 'Jövő hónaptól',
-    value: '3'
-  }
-];
 
 export default AbsenceScreen;

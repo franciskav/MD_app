@@ -16,29 +16,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IApplicationState } from '../../store';
 import { getNews } from '../store/news/news.actions';
 import { News } from '../model/news/news';
-
-const mock = [
-  {
-    date: '2020. szeptember 13.',
-    title: 'MD Open Friday - vol 1',
-    image: require('../../assets/new_group.jpg')
-  },
-  {
-    date: '2020. október 03.',
-    title: 'Esemény',
-    image: require('../../assets/open_fri.jpg')
-  },
-  {
-    date: '2020. szeptember 13.',
-    title: 'MD Open Friday - vol 1',
-    image: require('../../assets/new_group.jpg')
-  },
-  {
-    date: '2020. szeptember 13.',
-    title: 'MD Open Friday - vol 1',
-    image: require('../../assets/new_group.jpg')
-  }
-];
+import { Strings } from '../constants/localization';
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>;
@@ -64,8 +42,6 @@ const HomeScreen = ({ navigation }: LoginScreenProps) => {
     navigation.navigate(Screens.NewsDetails, { item });
   };
 
-  //console.log(Date.UTC(2020, 12, 31));
-
   const renderItem = (itemInfo: ListRenderItemInfo<any>) => {
     const { id, date, title, image } = itemInfo.item;
     return (
@@ -89,7 +65,7 @@ const HomeScreen = ({ navigation }: LoginScreenProps) => {
 
   return (
     <View style={styles.container}>
-      <PagesTemplate title={'Hírek és események'} canGoBack={false}>
+      <PagesTemplate title={Strings.newsAndEvents} canGoBack={false}>
         <FlatList
           keyExtractor={(item, index) => keyExtractor(item, index)}
           data={news}

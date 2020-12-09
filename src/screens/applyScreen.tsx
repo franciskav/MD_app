@@ -13,6 +13,7 @@ import RoundButton from '../components/button/roundButton';
 import { IApplicationState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { postApply } from '../store/apply/apply.actions';
+import { Strings } from '../constants/localization';
 
 const ApplyScreen = () => {
   const { apply, error, isLoading } = useSelector(
@@ -38,14 +39,11 @@ const ApplyScreen = () => {
     );
   };
   const successAction = () => {
-    Alert.alert('Jelentkezés', 'Sikeresen elküldted a jelentkezést.');
+    Alert.alert(Strings.applySucces.title, Strings.applySucces.message);
   };
   const failAction = () => {
     if (error) {
-      Alert.alert(
-        'Hiba',
-        'Nem sikerült elküldeni a jelentkezést, próbáld meg újra.'
-      );
+      Alert.alert(Strings.applyFailure.title, Strings.applyFailure.message);
     }
   };
 
@@ -55,16 +53,16 @@ const ApplyScreen = () => {
   const [comment, setComment] = useState('');
   return (
     <View style={styles.container}>
-      <PagesTemplate title={'Jelentkezés'} canGoBack={false}>
+      <PagesTemplate title={Strings.apply} canGoBack={false}>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.center}
         >
-          {renderLabel('Melyik tácstílus érdekel?')}
+          {renderLabel(Strings.whichDanceStyle)}
           {renderDropdown(danceStyles, danceStyle, setDanceStyle)}
-          {renderLabel('Melyik helyszín jó neked?')}
+          {renderLabel(Strings.whichPlace)}
           {renderDropdown(places, place, setPlace)}
-          {renderLabel('Mikor kezdenél?')}
+          {renderLabel(Strings.whenYouStart)}
           {renderDropdown(startDates, startDate, setStartDate)}
 
           {/* {renderLabel('Melyik napokon jönnél?')}
@@ -79,10 +77,10 @@ const ApplyScreen = () => {
             style={[styles.textInput, Margins.mtLarge]}
             value={comment}
             onChangeText={setComment}
-            placeholder={'Megjegyzés'}
+            placeholder={Strings.comment}
           />
           <RoundButton
-            text={'Küldés'}
+            text={Strings.send}
             onPress={onSendPress}
             style={[Margins.mtBig, Margins.mbBig]}
           />

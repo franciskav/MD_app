@@ -2,6 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import PagesTemplate from '../components/pages/pagesTemplate';
+import { Strings } from '../constants/localization';
 
 interface TermsScreenProps {
   navigation: StackNavigationProp<any>;
@@ -14,7 +15,7 @@ const TermsScreen = ({ navigation }: TermsScreenProps) => {
   return (
     <View style={styles.container}>
       <PagesTemplate
-        title={'Adatkezelési tájékoztató'}
+        title={Strings.privacyPolicy}
         canGoBack={true}
         onPress={onBackPress}
       >

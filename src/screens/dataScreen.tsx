@@ -13,6 +13,7 @@ import { IApplicationState } from '../../store';
 import { Alert } from 'react-native';
 import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
 import { postData } from '../store/data/data.actions';
+import { Strings } from '../constants/localization';
 
 interface DataScreenProps {
   navigation: StackNavigationProp<any>;
@@ -64,22 +65,22 @@ const DataScreen = ({ navigation }: DataScreenProps) => {
     setDataChecked(!dataChecked);
   };
   return (
-    <LoginTemplate buttonText={'Küldés'} onPressButton={onSendPress}>
+    <LoginTemplate buttonText={Strings.send} onPressButton={onSendPress}>
       <LightTextInput
-        placeholder={'Név'}
+        placeholder={Strings.name}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setName}
         style={[Margins.mbNormal]}
       />
       <LightTextInput
-        placeholder={'Telefonszám'}
+        placeholder={Strings.phoneNumber}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setPhone}
         keyboardType={'phone-pad'}
         style={[Margins.mbNormal]}
       />
       <LightTextInput
-        placeholder={'Lakcím'}
+        placeholder={Strings.address}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setAddress}
         style={[Margins.mbNormal]}
@@ -87,16 +88,12 @@ const DataScreen = ({ navigation }: DataScreenProps) => {
       <View>
         <CheckboxRow
           checked={termsChecked}
-          title={
-            'Elolvastam és elfogadom az Adatkezelési Tájékoztatóban foglaltakat'
-          }
+          title={Strings.terms}
           onPress={onTermsPressed}
         />
         <CheckboxRow
           checked={dataChecked}
-          title={
-            'Hozzájárulok a fenti adataim Adatkezelő által történő kezeléséhez.'
-          }
+          title={Strings.data}
           onPress={onDataPressed}
         />
       </View>
