@@ -7,7 +7,7 @@ import { Icons } from '../constants/icons';
 import { Margins } from '../constants/margins';
 import { Spaces } from '../constants/spaces';
 import * as Linking from 'expo-linking';
-import { SocialUrls } from '../constants/urls';
+import { Urls } from '../constants/urls';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Screens } from '../constants/screens';
 import { Colors } from '../constants/colors';
@@ -36,20 +36,21 @@ const ProfilScreen = ({ navigation }: ProfilScreenProps) => {
     navigation.navigate(Screens.Edit);
   };
   const onTermsPress = () => {
-    navigation.navigate(Screens.Terms);
+    //navigation.navigate(Screens.Terms);
+    Linking.openURL(Urls.PRIVACY_POLICY);
   };
   const onContactPress = () => {
     navigation.navigate(Screens.Contact);
   };
 
   const onFacebookPress = () => {
-    Linking.openURL(SocialUrls.FACEBOOK);
+    Linking.openURL(Urls.FACEBOOK);
   };
   const onInstagramPress = () => {
-    Linking.openURL(SocialUrls.INSTAGRAM);
+    Linking.openURL(Urls.INSTAGRAM);
   };
   const onYoutubePress = () => {
-    Linking.openURL(SocialUrls.YOUTUBE);
+    Linking.openURL(Urls.YOUTUBE);
   };
 
   const onLogoutPress = () => {

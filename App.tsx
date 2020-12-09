@@ -35,7 +35,6 @@ import ProfilScreen from './src/screens/profilScreen';
 import { Icons } from './src/constants/icons';
 import ContactScreen from './src/screens/contactScreen';
 import EditScreen from './src/screens/editScreen';
-import TermsScreen from './src/screens/termsScreen';
 import NewsDetailsScreen from './src/screens/newsDetailsScreen';
 import { configureFirebase } from './config/firebaseconfig';
 import firebase from 'firebase';
@@ -54,7 +53,6 @@ function RootStackScreen() {
         component={NewsDetailsScreen}
       />
       <RootStack.Screen name={Screens.Edit} component={EditScreen} />
-      <RootStack.Screen name={Screens.Terms} component={TermsScreen} />
       <RootStack.Screen name={Screens.Contact} component={ContactScreen} />
     </RootStack.Navigator>
   );

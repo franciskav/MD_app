@@ -8,7 +8,6 @@ export const Screens = {
   Absence: 'Absence',
   Profil: 'Profil',
   Contact: 'Contact',
-  Terms: 'Terms',
   Edit: 'Edit',
   Data: 'Data'
 };
