@@ -54,9 +54,10 @@ const BTN_MAX_WIDTH = 550;
 const styles = StyleSheet.create({
   buttonContainer: {
     maxWidth: BTN_MAX_WIDTH,
-    width: '100%',
+    width: '90%',
     backgroundColor: Colors.extraLightGrey,
     justifyContent: 'center',
+    alignSelf: 'center',
     paddingHorizontal: Spaces.normal,
     paddingVertical: Spaces.medium,
     borderTopColor: Colors.yellow,

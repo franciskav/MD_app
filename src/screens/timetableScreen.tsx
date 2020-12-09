@@ -110,8 +110,7 @@ const TimetableScreen = () => {
             textColor={Colors.white}
             itemColor={Colors.lightGrey}
             pickerStyle={{ backgroundColor: Colors.black }}
-            //TODO: fix it
-            //lineWidth={0}
+            lineWidth={0}
             style={styles.dropdown}
             itemTextStyle={styles.dropdownText}
           />
@@ -170,7 +169,7 @@ const styles = StyleSheet.create({
     fontSize: FontSizes.medium
   },
   flatlist: {
-    width: '90%',
+    width: '100%',
     paddingTop: Spaces.medium
   },
   flatlistContent: {
