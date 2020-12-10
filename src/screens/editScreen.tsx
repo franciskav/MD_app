@@ -25,6 +25,7 @@ const EditScreen = ({ navigation }: EditScreenProps) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
+  const [disabled, setDisabled] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -45,6 +46,10 @@ const EditScreen = ({ navigation }: EditScreenProps) => {
   useEffect(() => {
     setAddress(data.address);
   }, [data.address]);
+
+  useEffect(() => {
+    setButtonDisabled();
+  }, [name, phone, address]);
 
   const successAction = () => {
     Alert.alert(Strings.editSucces.title, Strings.editSucces.message);
@@ -74,7 +79,9 @@ const EditScreen = ({ navigation }: EditScreenProps) => {
       )
     );
   };
-
+  const setButtonDisabled = () => {
+    setDisabled(name === '' || phone === '' || address === '');
+  };
   return (
     <View style={styles.container}>
       <PagesTemplate
@@ -105,7 +112,11 @@ const EditScreen = ({ navigation }: EditScreenProps) => {
             onChangeText={setAddress}
             style={[Margins.mbExtraLarge, styles.text]}
           />
-          <RoundButton onPress={onSendPress} text={Strings.send} />
+          <RoundButton
+            onPress={onSendPress}
+            text={Strings.send}
+            disabled={disabled}
+          />
         </View>
       </PagesTemplate>
       {isLoading && <MDActivityIndicator />}
