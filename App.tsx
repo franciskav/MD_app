@@ -35,8 +35,10 @@ import ProfilScreen from './src/screens/profilScreen';
 import { Icons } from './src/constants/icons';
 import ContactScreen from './src/screens/contactScreen';
 import EditScreen from './src/screens/editScreen';
-import TermsScreen from './src/screens/termsScreen';
 import NewsDetailsScreen from './src/screens/newsDetailsScreen';
+import { configureFirebase } from './config/firebaseconfig';
+import firebase from 'firebase';
+import DataScreen from './src/screens/dataScreen';
 
 const RootStack = createStackNavigator();
 const LoginStack = createStackNavigator();
@@ -51,7 +53,6 @@ function RootStackScreen() {
         component={NewsDetailsScreen}
       />
       <RootStack.Screen name={Screens.Edit} component={EditScreen} />
-      <RootStack.Screen name={Screens.Terms} component={TermsScreen} />
       <RootStack.Screen name={Screens.Contact} component={ContactScreen} />
     </RootStack.Navigator>
   );
@@ -62,6 +63,7 @@ function LoginStackScreen() {
     <LoginStack.Navigator screenOptions={{ headerShown: false }}>
       <LoginStack.Screen name={Screens.Login} component={LoginScreen} />
       <LoginStack.Screen name={Screens.SignUp} component={SignupScreen} />
+      <LoginStack.Screen name={Screens.Data} component={DataScreen} />
       <LoginStack.Screen name={Screens.Home} component={TabStackScreen} />
     </LoginStack.Navigator>
   );
@@ -134,6 +136,11 @@ function TabStackScreen() {
 
 const App = () => {
   const store = configureStore();
+
+  configureFirebase();
+
+  var database = firebase.database();
+  var storage = firebase.storage();
 
   let [fonstLoaded] = useFonts({
     Lato_400Regular,

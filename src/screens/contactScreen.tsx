@@ -5,6 +5,7 @@ import MapView, { Marker } from 'react-native-maps';
 import PagesTemplate from '../components/pages/pagesTemplate';
 import { Colors } from '../constants/colors';
 import { Fonts, FontSizes } from '../constants/fonts';
+import { Strings } from '../constants/localization';
 import { Margins } from '../constants/margins';
 import { Spaces } from '../constants/spaces';
 
@@ -19,10 +20,14 @@ const ContactScreen = ({ navigation }: ContactScreenProps) => {
 
   return (
     <View style={styles.container}>
-      <PagesTemplate title={'Kapcsolat'} canGoBack={true} onPress={onBackPress}>
+      <PagesTemplate
+        title={Strings.contact}
+        canGoBack={true}
+        onPress={onBackPress}
+      >
         <View style={styles.center}>
-          {renderTextRow('E-mail:', 'masterdancetanciskola@gmail.com')}
-          {renderTextRow('Tel.:', '+36 (30) 633-6682')}
+          {renderTextRow(Strings.email.title, Strings.email.data)}
+          {renderTextRow(Strings.phone.title, Strings.phone.data)}
           <MapView
             style={styles.map}
             initialRegion={{
@@ -40,14 +45,8 @@ const ContactScreen = ({ navigation }: ContactScreenProps) => {
             />
           </MapView>
 
-          {renderTextRow(
-            'Arany János Stúdió:',
-            '6. kerület, Zichy Jenő utca 3. (Arany János metró megállótól 3 percnyi sétára van.)'
-          )}
-          {renderTextRow(
-            'Astoria Stúdió:',
-            '5. Kerület, Semmelweis u. 1-3, (Astoria metró megállótól 3 percnyi sétára van. MD Dance Stúdió a Magyarok házában a második emeleten van)'
-          )}
+          {renderTextRow(Strings.arany.title, Strings.arany.data)}
+          {renderTextRow(Strings.astoria.title, Strings.astoria.data)}
         </View>
       </PagesTemplate>
     </View>

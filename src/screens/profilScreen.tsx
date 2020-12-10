@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Text, Alert } from 'react-native';
 import DarkButton from '../components/button/darkButton';
 import ImageButton from '../components/button/imageButton';
 import PagesTemplate from '../components/pages/pagesTemplate';
@@ -7,53 +7,90 @@ import { Icons } from '../constants/icons';
 import { Margins } from '../constants/margins';
 import { Spaces } from '../constants/spaces';
 import * as Linking from 'expo-linking';
-import { SocialUrls } from '../constants/urls';
+import { Urls } from '../constants/urls';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Screens } from '../constants/screens';
+import { Colors } from '../constants/colors';
+import { Fonts, FontSizes } from '../constants/fonts';
+import { useDispatch, useSelector } from 'react-redux';
+import { postLogout } from '../store/logout/logout.actions';
+import { IApplicationState } from '../../store';
+import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
+import { Strings } from '../constants/localization';
 
 interface ProfilScreenProps {
   navigation: StackNavigationProp<any>;
 }
 
 const ProfilScreen = ({ navigation }: ProfilScreenProps) => {
+  const { error, isLoading } = useSelector(
+    (state: IApplicationState) => state.app.logout
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    failAction();
+  }, [error]);
+
   const onEditPress = () => {
     navigation.navigate(Screens.Edit);
   };
   const onTermsPress = () => {
-    navigation.navigate(Screens.Terms);
+    //navigation.navigate(Screens.Terms);
+    Linking.openURL(Urls.PRIVACY_POLICY);
   };
   const onContactPress = () => {
     navigation.navigate(Screens.Contact);
   };
+
   const onFacebookPress = () => {
-    Linking.openURL(SocialUrls.FACEBOOK);
+    Linking.openURL(Urls.FACEBOOK);
   };
   const onInstagramPress = () => {
-    Linking.openURL(SocialUrls.INSTAGRAM);
+    Linking.openURL(Urls.INSTAGRAM);
   };
   const onYoutubePress = () => {
-    Linking.openURL(SocialUrls.YOUTUBE);
+    Linking.openURL(Urls.YOUTUBE);
+  };
+
+  const onLogoutPress = () => {
+    dispatch(postLogout(successAction));
+  };
+
+  const successAction = () => {
+    navigation.replace(Screens.Login);
+  };
+  const failAction = () => {
+    if (error) {
+      Alert.alert(Strings.logoutFailure.title, Strings.logoutFailure.message);
+    }
   };
 
   return (
     <View style={styles.container}>
-      <PagesTemplate title={'Profil'} canGoBack={false}>
+      <PagesTemplate title={Strings.profile} canGoBack={false}>
         <View style={[styles.container, styles.center]}>
           <DarkButton
-            text={'Adatok szerkesztése'}
+            text={Strings.editData}
             onPress={onEditPress}
             style={styles.darkButton}
           />
           <DarkButton
-            text={'Adatkezelési tájékoztató'}
+            text={Strings.privacyPolicy}
             onPress={onTermsPress}
             style={styles.darkButton}
           />
           <DarkButton
-            text={'Kapcsolat'}
+            text={Strings.contact}
             onPress={onContactPress}
             style={styles.darkButton}
           />
+          <Text
+            style={[styles.logoutText, Margins.mtSmall]}
+            onPress={onLogoutPress}
+          >
+            {Strings.logout}
+          </Text>
         </View>
         <View style={[styles.row, styles.center, Margins.mbBig]}>
           <ImageButton
@@ -72,6 +109,7 @@ const ProfilScreen = ({ navigation }: ProfilScreenProps) => {
             style={styles.imageButton}
           />
         </View>
+        {isLoading && <MDActivityIndicator />}
       </PagesTemplate>
     </View>
   );
@@ -94,6 +132,11 @@ const styles = StyleSheet.create({
   },
   imageButton: {
     marginHorizontal: Spaces.normal
+  },
+  logoutText: {
+    color: Colors.lightGrey,
+    fontFamily: Fonts.Lato_regular_italic,
+    fontSize: FontSizes.normal
   }
 });
 

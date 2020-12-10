@@ -17,6 +17,8 @@ interface Props {
   style?: StyleProp<ViewStyle>;
   time: string;
   description: string;
+  teacher?: string;
+  age?: string;
   disabled?: boolean;
 }
 
@@ -26,6 +28,8 @@ const TimetableCard = ({
   style,
   time,
   description,
+  teacher,
+  age,
   disabled
 }: Props) => {
   return (
@@ -36,7 +40,11 @@ const TimetableCard = ({
       disabled={disabled}
     >
       <Text style={[styles.timeText, Margins.mbNormal]}>{time}</Text>
-      <Text style={[styles.descriptionText]}>{description}</Text>
+      <Text style={[styles.descriptionText]}>
+        {description}
+        {age && ` / ${age}`}
+        {teacher && ` / ${teacher}`}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -49,6 +57,7 @@ const styles = StyleSheet.create({
     width: '90%',
     backgroundColor: Colors.extraLightGrey,
     justifyContent: 'center',
+    alignSelf: 'center',
     paddingHorizontal: Spaces.normal,
     paddingVertical: Spaces.medium,
     borderTopColor: Colors.yellow,

@@ -5,105 +5,105 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Margins } from '../constants/margins';
 import { Screens } from '../constants/screens';
 import { Colors } from '../constants/colors';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import CheckboxRow from '../components/checkbox/checkboxRow';
 import { View } from 'react-native';
+import { IApplicationState } from '../../store';
+import { postSignup } from '../store/signup/signup.actions';
+import { Alert } from 'react-native';
+import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
+import { ErrorCode, Strings } from '../constants/localization';
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>;
 }
 
 const SignupScreen = ({ navigation }: LoginScreenProps) => {
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password_2, setPassword_2] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [termsChecked, setTermsChecked] = useState(false);
-  const [dataChecked, setDataChecked] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+
+  const { signup, error, isLoading } = useSelector(
+    (state: IApplicationState) => state.app.signup
+  );
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    failAction();
+  }, [error]);
+
+  useEffect(() => {
+    setButtonDisabled();
+  }, [email, password, password_2]);
+
   const onSignupPress = () => {
-    navigation.replace(Screens.Home);
+    if (password === password_2) {
+      dispatch(
+        postSignup(
+          {
+            email: email,
+            password: password
+          },
+          successAction
+        )
+      );
+    } else {
+      Alert.alert(
+        Strings.passwordsNotMatch.title,
+        Strings.passwordsNotMatch.message
+      );
+    }
   };
+
   const successAction = () => {
-    //navigation.replace(Screens.Main)
+    navigation.replace(Screens.Data);
+  };
+  const failAction = () => {
+    if (error) {
+      Alert.alert(Strings.error, ErrorCode[error]);
+    }
   };
   const onLoginPress = () => {
     navigation.replace(Screens.Login);
   };
-  const onTermsPressed = () => {
-    setTermsChecked(!termsChecked);
-  };
-  const onDataPressed = () => {
-    setDataChecked(!dataChecked);
+
+  const setButtonDisabled = () => {
+    setDisabled(email === '' || password === '' || password_2 === '');
   };
   return (
     <LoginTemplate
-      buttonText={'Regisztráció'}
-      change={'Már van fiókod? Jelentkezz be!'}
+      buttonText={Strings.singup}
+      change={Strings.goSignup}
       onPressButton={onSignupPress}
       onPressChange={onLoginPress}
+      buttonDisabled={disabled}
     >
       <LightTextInput
-        placeholder={'Név'}
-        placeholderTextColor={Colors.lightGrey}
-        onChangeText={setName}
-        style={[Margins.mbNormal]}
-      />
-      <LightTextInput
-        placeholder={'Email'}
+        placeholder={Strings.emailAddress}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setEmail}
         keyboardType={'email-address'}
         style={[Margins.mbNormal]}
       />
       <LightTextInput
-        placeholder={'Jelszó'}
+        placeholder={Strings.password}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setPassword}
         secureTextEntry={true}
         style={[Margins.mbNormal]}
       />
       <LightTextInput
-        placeholder={'Jelszó újra'}
+        placeholder={Strings.passwordAgain}
         placeholderTextColor={Colors.lightGrey}
         onChangeText={setPassword_2}
         secureTextEntry={true}
         style={[Margins.mbNormal]}
       />
-      <LightTextInput
-        placeholder={'Telefonszám'}
-        placeholderTextColor={Colors.lightGrey}
-        onChangeText={setPhone}
-        keyboardType={'phone-pad'}
-        style={[Margins.mbNormal]}
-      />
-      <LightTextInput
-        placeholder={'Lakcím'}
-        placeholderTextColor={Colors.lightGrey}
-        onChangeText={setAddress}
-        style={[Margins.mbNormal]}
-      />
-      <View>
-        <CheckboxRow
-          checked={termsChecked}
-          title={
-            'Elolvastam és elfogadom az Adatkezelési Tájékoztatóban foglaltakat'
-          }
-          onPress={onTermsPressed}
-        />
-        <CheckboxRow
-          checked={dataChecked}
-          title={
-            'Hozzájárulok a fenti adataim Adatkezelő által történő kezeléséhez.'
-          }
-          onPress={onDataPressed}
-        />
-      </View>
+
+      {isLoading && <MDActivityIndicator />}
     </LoginTemplate>
   );
 };

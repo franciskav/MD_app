@@ -1,48 +1,57 @@
 import { StackNavigationProp } from '@react-navigation/stack';
-import React from 'react';
-import { View, Text, StyleSheet, ListRenderItemInfo } from 'react-native';
+import React, { useEffect } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ListRenderItemInfo,
+  RefreshControl
+} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import NewsCard from '../components/card/newsCard';
 import PagesTemplate from '../components/pages/pagesTemplate';
 import { Screens } from '../constants/screens';
 import { Spaces } from '../constants/spaces';
-
-const mock = [
-  {
-    date: '2020. szeptember 13.',
-    title: 'MD Open Friday - vol 1',
-    image: require('../../assets/new_group.jpg')
-  },
-  {
-    date: '2020. október 03.',
-    title: 'Esemény',
-    image: require('../../assets/open_fri.jpg')
-  },
-  {
-    date: '2020. szeptember 13.',
-    title: 'MD Open Friday - vol 1',
-    image: require('../../assets/new_group.jpg')
-  },
-  {
-    date: '2020. szeptember 13.',
-    title: 'MD Open Friday - vol 1',
-    image: require('../../assets/new_group.jpg')
-  }
-];
+import { useSelector, useDispatch } from 'react-redux';
+import { IApplicationState } from '../../store';
+import { getNews } from '../store/news/news.actions';
+import { News } from '../model/news/news';
+import { Strings } from '../constants/localization';
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>;
 }
 
 const HomeScreen = ({ navigation }: LoginScreenProps) => {
-  const onItemPress = () => {
-    navigation.navigate(Screens.NewsDetails);
+  const { news, error, isLoading } = useSelector(
+    (state: IApplicationState) => state.app.news
+  );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getNews());
+  }, [dispatch]);
+
+  const refreshNews = () => {
+    dispatch(getNews());
+  };
+
+  const onItemPress = (id: string) => {
+    const item = news.find((n: News) => n.id === id);
+    navigation.navigate(Screens.NewsDetails, { item });
   };
 
   const renderItem = (itemInfo: ListRenderItemInfo<any>) => {
-    const { date, title, image } = itemInfo.item;
+    const { id, date, title, image } = itemInfo.item;
     return (
-      <NewsCard onPress={onItemPress} date={date} title={title} image={image} />
+      <NewsCard
+        onPress={onItemPress}
+        id={id}
+        date={date}
+        title={title}
+        image={image}
+      />
     );
   };
 
@@ -50,15 +59,24 @@ const HomeScreen = ({ navigation }: LoginScreenProps) => {
     return <View style={{ height: Spaces.extraLarge }} />;
   };
 
+  const keyExtractor = (item: News, index: number) => {
+    return item.id + index;
+  };
+
   return (
     <View style={styles.container}>
-      <PagesTemplate title={'Hírek és események'} canGoBack={false}>
+      <PagesTemplate title={Strings.newsAndEvents} canGoBack={false}>
         <FlatList
-          data={mock}
+          keyExtractor={(item, index) => keyExtractor(item, index)}
+          data={news}
           renderItem={renderItem}
           ItemSeparatorComponent={separatorComponent}
           style={styles.flatlist}
           contentContainerStyle={styles.flatlistContent}
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={refreshNews} />
+          }
         />
       </PagesTemplate>
     </View>

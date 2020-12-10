@@ -16,25 +16,42 @@ import { Spaces } from '../../constants/spaces';
 import { Margins } from '../../constants/margins';
 
 interface Props {
-  onPress: () => void;
+  onPress: (id: string) => void;
+  id: string;
   style?: StyleProp<ViewStyle>;
   date: string;
   title: string;
-  image: ImageSourcePropType;
+  image: string;
   disabled?: boolean;
 }
 
-const NewsCard = ({ onPress, style, date, title, image, disabled }: Props) => {
+const NewsCard = ({
+  onPress,
+  id,
+  style,
+  date,
+  title,
+  image,
+  disabled
+}: Props) => {
+  const onPressed = () => {
+    if (onPress) {
+      onPress(id);
+    }
+  };
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={onPressed}
       style={[styles.buttonContainer, style]}
       disabled={disabled}
     >
       <View style={[styles.leftTop, styles.shadow]}></View>
       <View style={[styles.rightBottom, styles.shadow]}></View>
       <View style={[styles.contentContainer, styles.shadow]}>
-        <Image style={[styles.image, Margins.mbNormal]} source={image} />
+        <Image
+          style={[styles.image, Margins.mbNormal]}
+          source={{ uri: image }}
+        />
         <View style={styles.timeBorder}>
           <Text style={[styles.timeText]}>{date}</Text>
         </View>
@@ -103,7 +120,7 @@ const styles = StyleSheet.create({
   image: {
     width: IMAGE_WIDTH,
     height: IMAGE_WIDTH * RATIO,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     alignSelf: 'center'
   }
 });

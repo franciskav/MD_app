@@ -6,9 +6,9 @@ export const Icons = {
   instagram_icon: require('../../assets/instagram.png'),
   youtube_icon: require('../../assets/youtube.png'),
   home_icon: require('../../assets/home.png'),
-  timetable_icon: require('../../assets/home.png'),
-  apply_icon: require('../../assets/home.png'),
-  absence_icon: require('../../assets/home.png'),
-  profil_icon: require('../../assets/home.png'),
+  timetable_icon: require('../../assets/timetable.png'),
+  apply_icon: require('../../assets/form.png'),
+  absence_icon: require('../../assets/close.png'),
+  profil_icon: require('../../assets/user.png'),
   back_arrow: require('../../assets/arrow_back.png')
 };

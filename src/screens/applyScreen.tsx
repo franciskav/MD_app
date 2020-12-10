@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import PagesTemplate from '../components/pages/pagesTemplate';
 import { Colors } from '../constants/colors';
 import { Fonts, FontSizes } from '../constants/fonts';
@@ -10,42 +10,77 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Spaces } from '../constants/spaces';
 import DarkTextInput from '../components/text-input/darkTextInput';
 import RoundButton from '../components/button/roundButton';
+import { IApplicationState } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { postApply } from '../store/apply/apply.actions';
+import { Strings } from '../constants/localization';
 
 const ApplyScreen = () => {
-  const [danceStyle, setDanceStyle] = useState(0);
-  const [place, setPlace] = useState(0);
-  const [startDate, setStartDate] = useState(0);
+  const { apply, error, isLoading } = useSelector(
+    (state: IApplicationState) => state.app.apply
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    failAction();
+  }, [error]);
+
+  const onSendPress = () => {
+    dispatch(
+      postApply(
+        {
+          style: danceStyle,
+          place: place,
+          startDate: startDate,
+          comment: comment
+        },
+        successAction
+      )
+    );
+  };
+  const successAction = () => {
+    Alert.alert(Strings.applySucces.title, Strings.applySucces.message);
+  };
+  const failAction = () => {
+    if (error) {
+      Alert.alert(Strings.applyFailure.title, Strings.applyFailure.message);
+    }
+  };
+
+  const [danceStyle, setDanceStyle] = useState('hip_hop');
+  const [place, setPlace] = useState('astoria');
+  const [startDate, setStartDate] = useState('today');
   const [comment, setComment] = useState('');
-  const onSendPress = () => {};
   return (
     <View style={styles.container}>
-      <PagesTemplate title={'Jelentkezés'} canGoBack={false}>
+      <PagesTemplate title={Strings.apply} canGoBack={false}>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.center}
         >
-          {renderLabel('Melyik tácstílus érdekel?')}
+          {renderLabel(Strings.whichDanceStyle)}
           {renderDropdown(danceStyles, danceStyle, setDanceStyle)}
-          {renderLabel('Melyik helyszín jó neked?')}
+          {renderLabel(Strings.whichPlace)}
           {renderDropdown(places, place, setPlace)}
-          {renderLabel('Mikor kezdenél?')}
+          {renderLabel(Strings.whenYouStart)}
           {renderDropdown(startDates, startDate, setStartDate)}
-          {renderLabel('Melyik napokon jönnél?')}
 
+          {/* {renderLabel('Melyik napokon jönnél?')}
           {renderLabel(times[0].day)}
           {times[0].time.map(item => renderCheckBox(item, 0))}
           {renderLabel(times[1].day)}
           {times[1].time.map(item => renderCheckBox(item, 1))}
           {renderLabel(times[2].day)}
-          {times[2].time.map(item => renderCheckBox(item, 2))}
+          {times[2].time.map(item => renderCheckBox(item, 2))} */}
+
           <DarkTextInput
             style={[styles.textInput, Margins.mtLarge]}
             value={comment}
             onChangeText={setComment}
-            placeholder={'Megjegyzés'}
+            placeholder={Strings.comment}
           />
           <RoundButton
-            text={'Küldés'}
+            text={Strings.send}
             onPress={onSendPress}
             style={[Margins.mtBig, Margins.mbBig]}
           />
@@ -61,8 +96,8 @@ const renderLabel = (text: string) => {
 
 const renderDropdown = (
   data: DropdownData[],
-  value: number,
-  onChangeText: React.Dispatch<React.SetStateAction<number>>
+  value: string,
+  onChangeText: React.Dispatch<React.SetStateAction<string>>
 ) => {
   return (
     <Dropdown
@@ -70,7 +105,7 @@ const renderDropdown = (
       value={value}
       onChangeText={onChangeText}
       containerStyle={styles.dropdownContainer}
-      style={styles.dropdown}
+      //style={styles.dropdown}
       itemTextStyle={styles.dropdownText}
     />
   );
@@ -219,45 +254,49 @@ const times: Times[] = [
 const danceStyles: DropdownData[] = [
   {
     label: 'Hip Hop',
-    value: 0
+    value: 'hip_hop'
   },
   {
     label: 'Vogue',
-    value: 1
+    value: 'vogue'
   },
   {
     label: 'Mindkettő',
-    value: 2
+    value: 'both'
   }
 ];
 
 const places: DropdownData[] = [
   {
     label: 'Astória Stúdió',
-    value: 0
+    value: 'astoria'
   },
   {
     label: 'Arany János Stúdió',
-    value: 1
+    value: 'arany'
+  },
+  {
+    label: 'Mindkettő',
+    value: 'both'
   }
 ];
 
 const startDates: DropdownData[] = [
   {
     label: 'Mai napon',
-    value: 0
+    value: 'today'
   },
   {
     label: 'Ezen a héten',
-    value: 1
+    value: 'this_week'
   },
   {
     label: 'Jövő héten',
-    value: 2
+    value: 'next_week'
   },
   {
     label: 'Jövő hónaptól',
-    value: 3
+    value: 'next_month'
   }
 ];
 
