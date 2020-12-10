@@ -8,16 +8,15 @@ import { Margins } from '../../constants/margins';
 import { Spaces } from '../../constants/spaces';
 
 interface Props {
-  onPress: (show: boolean) => void;
-  show: boolean;
+  onPress: (name: string) => void;
   title?: string;
   description?: string;
 }
 
-const TeachersTemplate = ({ onPress, show, title, description }: Props) => {
+const TeachersTemplate = ({ onPress, title, description }: Props) => {
   const onPressed = () => {
     if (onPress) {
-      onPress(show);
+      onPress('');
     }
   };
   return (
@@ -37,9 +36,9 @@ const TeachersTemplate = ({ onPress, show, title, description }: Props) => {
             onPress={onPressed}
           >
             <Text style={[styles.titleText, Margins.mbExtraLarge]}>
-              {Teachers['Alex'].name}
+              {title}
             </Text>
-            <Text style={styles.text}>{Teachers['Alex'].description}</Text>
+            <Text style={styles.text}>{description}</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>

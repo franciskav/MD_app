@@ -16,7 +16,7 @@ import RoundButton from '../components/button/roundButton';
 import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
 import { Margins } from '../constants/margins';
 import TeachersTemplate from '../components/modal/teachersTemplate';
-import { Strings } from '../constants/localization';
+import { Strings, Teachers } from '../constants/localization';
 
 const TimetableScreen = () => {
   const { timetable, error, isLoading } = useSelector(
@@ -25,15 +25,13 @@ const TimetableScreen = () => {
 
   const [place, setPlace] = useState(0);
   const [day, setDay] = useState('monday_wednesday');
-  const [showTeacher, setShowTeacher] = useState(false);
+  const [showTeacher, setShowTeacher] = useState('');
 
   const buttons = [
     'Arany János\nStúdió',
     'Asztória Stúdió\nA terem',
     'Asztória Stúdió\nB terem'
   ];
-
-  const buttonsValue = ['arany', 'astoria_a', 'astoria_b'];
 
   const data: DropdownData[] = [
     {
@@ -56,16 +54,15 @@ const TimetableScreen = () => {
     dispatch(getTimetable());
   }, [dispatch]);
 
-  const onPressCard = () => {
-    setShowTeacher(!showTeacher);
-  };
-
-  const onPressTecher = () => {
-    setShowTeacher(!showTeacher);
+  const onPressTeacher = () => {
+    setShowTeacher('');
   };
 
   const renderItem = (itemInfo: ListRenderItemInfo<any>) => {
     const { time, agelimit, teacher, description } = itemInfo.item;
+    const onPressCard = () => {
+      setShowTeacher(teacher);
+    };
     return (
       <TimetableCard
         onPress={onPressCard}
@@ -140,8 +137,13 @@ const TimetableScreen = () => {
           )}
         </View>
       </PagesTemplate>
-      {showTeacher && (
-        <TeachersTemplate onPress={onPressTecher} show={showTeacher} />
+      {showTeacher !== '' && (
+        <TeachersTemplate
+          onPress={onPressTeacher}
+          //show={showTeacher}
+          title={Teachers[showTeacher].name}
+          description={Teachers[showTeacher].description}
+        />
       )}
       {isLoading && <MDActivityIndicator />}
     </View>
