@@ -21,7 +21,11 @@ const RoundButton = ({ onPress, style, text, disabled }: Props) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[styles.buttonContainer, style]}
+      style={[
+        styles.buttonContainer,
+        style,
+        disabled && { backgroundColor: Colors.lightGrey }
+      ]}
       disabled={disabled}
     >
       <Text style={styles.buttonText}>{text}</Text>

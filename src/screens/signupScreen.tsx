@@ -23,6 +23,7 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password_2, setPassword_2] = useState('');
+  const [disabled, setDisabled] = useState(true);
 
   const { signup, error, isLoading } = useSelector(
     (state: IApplicationState) => state.app.signup
@@ -34,17 +35,29 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
     failAction();
   }, [error]);
 
+  useEffect(() => {
+    setButtonDisabled();
+  }, [email, password, password_2]);
+
   const onSignupPress = () => {
-    dispatch(
-      postSignup(
-        {
-          email: email,
-          password: password
-        },
-        successAction
-      )
-    );
+    if (password === password_2) {
+      dispatch(
+        postSignup(
+          {
+            email: email,
+            password: password
+          },
+          successAction
+        )
+      );
+    } else {
+      Alert.alert(
+        Strings.passwordsNotMatch.title,
+        Strings.passwordsNotMatch.message
+      );
+    }
   };
+
   const successAction = () => {
     navigation.replace(Screens.Data);
   };
@@ -56,12 +69,17 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
   const onLoginPress = () => {
     navigation.replace(Screens.Login);
   };
+
+  const setButtonDisabled = () => {
+    setDisabled(email === '' || password === '' || password_2 === '');
+  };
   return (
     <LoginTemplate
       buttonText={Strings.singup}
       change={Strings.goSignup}
       onPressButton={onSignupPress}
       onPressChange={onLoginPress}
+      buttonDisabled={disabled}
     >
       <LightTextInput
         placeholder={Strings.emailAddress}

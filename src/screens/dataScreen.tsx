@@ -25,6 +25,7 @@ const DataScreen = ({ navigation }: DataScreenProps) => {
   const [address, setAddress] = useState('');
   const [termsChecked, setTermsChecked] = useState(false);
   const [dataChecked, setDataChecked] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
   const { dataRequest, error, isLoading } = useSelector(
     (state: IApplicationState) => state.app.data
@@ -35,6 +36,10 @@ const DataScreen = ({ navigation }: DataScreenProps) => {
   useEffect(() => {
     failAction();
   }, [error]);
+
+  useEffect(() => {
+    setButtonDisabled();
+  }, [name, phone, address, termsChecked, dataChecked]);
 
   const onSendPress = () => {
     dispatch(
@@ -64,8 +69,21 @@ const DataScreen = ({ navigation }: DataScreenProps) => {
   const onDataPressed = () => {
     setDataChecked(!dataChecked);
   };
+  const setButtonDisabled = () => {
+    setDisabled(
+      name === '' ||
+        phone === '' ||
+        address === '' ||
+        termsChecked === false ||
+        dataChecked === false
+    );
+  };
   return (
-    <LoginTemplate buttonText={Strings.send} onPressButton={onSendPress}>
+    <LoginTemplate
+      buttonText={Strings.send}
+      onPressButton={onSendPress}
+      buttonDisabled={disabled}
+    >
       <LightTextInput
         placeholder={Strings.name}
         placeholderTextColor={Colors.lightGrey}

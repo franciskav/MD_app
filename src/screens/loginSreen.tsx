@@ -22,6 +22,7 @@ interface LoginScreenProps {
 const LoginScreen = ({ navigation }: LoginScreenProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [disabled, setDisabled] = useState(true);
 
   const { login, error, isLoading } = useSelector(
     (state: IApplicationState) => state.app.login
@@ -31,6 +32,10 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
   useEffect(() => {
     failAction();
   }, [error]);
+
+  useEffect(() => {
+    setButtonDisabled();
+  }, [email, password]);
 
   const onLoginPress = () => {
     dispatch(postLogin({ email: email, password: password }, successAction));
@@ -47,12 +52,18 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
   const onRegisterPress = () => {
     navigation.replace(Screens.SignUp);
   };
+
+  const setButtonDisabled = () => {
+    setDisabled(email === '' || password === '');
+  };
+
   return (
     <LoginTemplate
       buttonText={Strings.login}
       change={Strings.goSingup}
       onPressButton={onLoginPress}
       onPressChange={onRegisterPress}
+      buttonDisabled={disabled}
     >
       <LightTextInput
         placeholder={Strings.emailAddress}

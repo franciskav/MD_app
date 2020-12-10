@@ -51,6 +51,10 @@ export const Strings = {
     title: 'Hiba',
     message: 'Sikertelen kijelentkezés, próbáld meg újra'
   },
+  passwordsNotMatch: {
+    title: 'Hiba',
+    message: 'A két jelszó nem egyezik.'
+  },
 
   //Contact
   email: { title: 'E-mail:', data: 'masterdancetanciskola@gmail.com' },
