@@ -1,32 +1,93 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  Alert,
+  ListRenderItemInfo
+} from 'react-native';
 import PagesTemplate from '../components/pages/pagesTemplate';
 import { Colors } from '../constants/colors';
 import { Fonts, FontSizes } from '../constants/fonts';
 import { Margins } from '../constants/margins';
 import CheckboxRow from '../components/checkbox/checkboxRow';
-import { ScrollView } from 'react-native-gesture-handler';
+import { FlatList, ScrollView, State } from 'react-native-gesture-handler';
 import { Spaces } from '../constants/spaces';
 import DarkTextInput from '../components/text-input/darkTextInput';
 import RoundButton from '../components/button/roundButton';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DateButton from '../components/button/dateButton';
 import { Strings } from '../constants/localization';
+import AbsenceCard from '../components/card/absenceCard';
+import { IApplicationState } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getMyClasses,
+  postAbsence,
+  setSelected
+} from '../store/absence/absence.actions';
+import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
+import { Class } from '../model/absence/class';
+import { AbsenceRequest } from '../model/absence/absenceRequest';
 
 const AbsenceScreen = () => {
-  const [evi, setEvi] = useState(false);
-  const [alex, setAlex] = useState(false);
-  const [dani, setDani] = useState(false);
-  const [zsolt, setZsolt] = useState(false);
-
   const [fromDate, setFromDate] = useState(new Date(Date.now()));
   const [showFrom, setShowFrom] = useState(false);
   const [toDate, setToDate] = useState(new Date(Date.now()));
   const [showTo, setShowTo] = useState(false);
-
   const [comment, setComment] = useState('');
 
-  const onSendPress = () => {};
+  const {
+    absenceRequest,
+    classes,
+    getError,
+    postError,
+    isLoading
+  } = useSelector((state: IApplicationState) => state.app.absence);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMyClasses());
+  }, [dispatch]);
+
+  useEffect(() => {
+    failAction();
+  }, [getError, postError]);
+
+  const failAction = () => {
+    if (getError) {
+      Alert.alert(
+        Strings.getClassesFailure.title,
+        Strings.getClassesFailure.message
+      );
+    }
+    if (postError) {
+      Alert.alert(Strings.absenceFailure.title, Strings.absenceFailure.message);
+    }
+  };
+
+  const successAction = () => {
+    Alert.alert(Strings.absenceSucces.title, Strings.absenceSucces.message);
+  };
+
+  const onSendPress = () => {
+    const courses: string[] = [];
+    classes.forEach(c => {
+      if (c.selected && c.id) {
+        courses.push(c.id);
+      }
+    });
+    const request: AbsenceRequest = {
+      classes: courses,
+      from: new Date(fromDate).getTime(),
+      to: new Date(toDate).getTime(),
+      comment: comment
+    };
+
+    dispatch(postAbsence(request, successAction));
+  };
 
   const onFromButtonPress = () => {
     setShowFrom(!showFrom);
@@ -45,18 +106,36 @@ const AbsenceScreen = () => {
     setToDate(currentDate);
   };
 
-  const onEviPress = () => {
-    setEvi(!evi);
+  const renderItem = (itemInfo: ListRenderItemInfo<any>) => {
+    const { teacher, description, id, selected } = itemInfo.item;
+
+    const onPressCard = () => {
+      const idx = classes.findIndex(c => {
+        return c.id === id;
+      });
+      const temp = classes;
+      temp[idx].selected = !temp[idx].selected;
+      dispatch(setSelected(temp));
+    };
+    return (
+      <AbsenceCard
+        onPress={onPressCard}
+        teacher={teacher}
+        description={description}
+        checked={selected}
+        style={Margins.mbNormal}
+      />
+    );
   };
-  const onAlexPress = () => {
-    setAlex(!alex);
+
+  const emptyComponent = () => {
+    return (
+      <View>
+        <Text style={styles.emptyText}>{Strings.emptyTimetable}</Text>
+      </View>
+    );
   };
-  const onDaniPress = () => {
-    setDani(!dani);
-  };
-  const onZsoltPress = () => {
-    setZsolt(!zsolt);
-  };
+
   return (
     <View style={styles.container}>
       <PagesTemplate title={Strings.missing} canGoBack={false}>
@@ -65,10 +144,16 @@ const AbsenceScreen = () => {
           contentContainerStyle={styles.center}
         >
           {renderLabel(Strings.fromWhichClasses)}
-          {renderCheckBox(evi, 'Évi', onEviPress)}
-          {renderCheckBox(alex, 'Alex', onAlexPress)}
-          {renderCheckBox(dani, 'Dani', onDaniPress)}
-          {renderCheckBox(zsolt, 'Zsolt', onZsoltPress)}
+
+          <FlatList
+            key={1}
+            data={classes}
+            renderItem={renderItem}
+            ListEmptyComponent={emptyComponent}
+            style={styles.flatlist}
+            contentContainerStyle={styles.flatlistContent}
+            extraData={setSelected}
+          />
 
           <View style={[styles.row, Margins.mtExtraLarge]}>
             <DateButton
@@ -92,7 +177,7 @@ const AbsenceScreen = () => {
               is24Hour={true}
               display="default"
               minimumDate={new Date(Date.now())}
-              maximumDate={new Date(2020, 12)}
+              maximumDate={new Date(Date.now() + 2550000000)}
             />
           )}
 
@@ -100,13 +185,13 @@ const AbsenceScreen = () => {
             <DateTimePicker
               style={{ width: '100%' }}
               testID="dateTimePicker"
-              value={fromDate}
+              value={toDate}
               onChange={onToChange}
               mode={'date'}
               is24Hour={true}
               display="default"
               minimumDate={new Date(Date.now())}
-              maximumDate={new Date(2020, 12)}
+              maximumDate={new Date(Date.now() + 2550000000)}
             />
           )}
 
@@ -123,27 +208,16 @@ const AbsenceScreen = () => {
           />
         </ScrollView>
       </PagesTemplate>
+      {isLoading && <MDActivityIndicator />}
     </View>
   );
 };
 
 const renderLabel = (text: string) => {
-  return <Text style={[styles.label, Margins.mtLarge]}>{text}</Text>;
-};
-
-const renderCheckBox = (
-  checked: boolean,
-  text: string,
-  onPress: () => void
-) => {
   return (
-    <CheckboxRow
-      checked={checked}
-      onPress={onPress}
-      title={text}
-      titleStyle={styles.checkboxTitle}
-      style={styles.checkbox}
-    />
+    <Text style={[styles.label, Margins.mtLarge, Margins.mbMedium]}>
+      {text}
+    </Text>
   );
 };
 
@@ -170,9 +244,9 @@ const styles = StyleSheet.create({
     maxWidth: MAX_WIDTH
   },
   checkbox: {
-    width: '100%',
+    width: '90%',
     maxWidth: MAX_WIDTH,
-    marginVertical: -10
+    marginBottom: Spaces.normal
   },
   checkboxTitle: {
     color: Colors.black,
@@ -189,6 +263,18 @@ const styles = StyleSheet.create({
     fontSize: FontSizes.large,
     textAlign: 'center',
     textAlignVertical: 'center'
+  },
+  emptyText: {
+    fontFamily: Fonts.Lato_regular,
+    fontSize: FontSizes.normal,
+    textAlign: 'center'
+  },
+  flatlist: {
+    width: '100%',
+    paddingTop: Spaces.medium
+  },
+  flatlistContent: {
+    paddingBottom: Spaces.small
   }
 });
 

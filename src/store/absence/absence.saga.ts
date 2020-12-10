@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { all, put, takeEvery } from 'redux-saga/effects';
 import { AsyncStorageKeys } from '../../constants/asyncStorageKeys';
 import { dataResponseToData } from '../../utility/helper/mapper';
+import absenceService from '../../utility/services/absenceService';
 import {
   getMyClassesFailActionCreator,
   GetMyClassesRequestAction,
@@ -13,7 +14,7 @@ import {
   POST_ABSENCE_REQUEST
 } from './absence.actions';
 
-export function* dataSaga() {
+export function* absenceSaga() {
   yield all([watchPost(), watchGet()]);
 }
 
@@ -28,27 +29,26 @@ function* watchGet() {
 function* postAbsenceActionWatcher(action: PostAbsenceRequestAction) {
   try {
     const uid = yield AsyncStorage.getItem(AsyncStorageKeys.UID);
-    //TODO: service
-    //const response = yield dataService.postData(action.dataRequest, uid);
+    const response = yield absenceService.postAbsence(
+      action.absenceRequest,
+      uid
+    );
     yield put(postAbsenceSuccessActionCreator());
     action.successAction();
   } catch (error) {
     console.log(error);
     yield put(postAbsenceFailActionCreator(error));
-    //action.failAction();
   }
 }
 
 function* getMyClassesActionWatcher(action: GetMyClassesRequestAction) {
   try {
     const uid = yield AsyncStorage.getItem(AsyncStorageKeys.UID);
-    //TODO: service
-    //const response = yield dataService.getData(uid);
-    //const data = dataResponseToData(response);
-    yield put(getMyClassesSuccessActionCreator([]));
+    const response = yield absenceService.getMyClasses(uid);
+    const classes = yield absenceService.getClasses(response);
+    yield put(getMyClassesSuccessActionCreator(classes));
   } catch (error) {
     console.log(error);
     yield put(getMyClassesFailActionCreator(error));
-    //action.failAction();
   }
 }

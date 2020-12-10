@@ -8,6 +8,8 @@ export const GET_MYCLASSES_REQUEST = 'GET_MYCLASSES_REQUEST';
 export const GET_MYCLASSES_SUCCESS = 'GET_MYCLASSES_SUCCESS';
 export const GET_MYCLASSES_FAILURE = 'GET_MYCLASSES_FAILURE';
 
+export const SET_SELECTED = 'SET_SELECTED';
+
 export interface PostAbsenceRequestAction {
   type: typeof POST_ABSENCE_REQUEST;
   successAction: () => void;
@@ -37,20 +39,26 @@ export interface GetMyClassesFailAction {
   reason: string | undefined;
 }
 
+export interface SetSelectedAction {
+  type: typeof SET_SELECTED;
+  classes: Class[];
+}
+
 export type AbsenceActions =
   | PostAbsenceRequestAction
   | PostAbsenceSuccessAction
   | PostAbsenceFailAction
   | GetMyClassesRequestAction
   | GetMyClassesSuccessAction
-  | GetMyClassesFailAction;
+  | GetMyClassesFailAction
+  | SetSelectedAction;
 
 export const postAbsence = (
-  dataRequest: AbsenceRequest,
+  absenceRequest: AbsenceRequest,
   successAction: () => void
 ): PostAbsenceRequestAction => ({
   type: POST_ABSENCE_REQUEST,
-  absenceRequest: dataRequest,
+  absenceRequest: absenceRequest,
   successAction
 });
 
@@ -81,4 +89,9 @@ export const getMyClassesFailActionCreator = (
 ): GetMyClassesFailAction => ({
   type: GET_MYCLASSES_FAILURE,
   reason
+});
+
+export const setSelected = (classes: Class[]): SetSelectedAction => ({
+  type: SET_SELECTED,
+  classes
 });
