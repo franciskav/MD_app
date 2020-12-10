@@ -7,6 +7,7 @@ class NewsService {
     await firebase
       .database()
       .ref('news')
+      .limitToLast(5)
       .once('value', snapshot => {
         snapshot.forEach(n => {
           news.push({
