@@ -26,6 +26,7 @@ export const Strings = {
   singup: 'Regisztráció',
   goSignup: 'Már van fiókod? Jelentkezz be!',
   emptyTimetable: 'Az adott napon és helyszínen nincsen óra.',
+  emptyClasses: 'Nincs megjeleníthető kurzus',
   timetable: 'Órarend',
   timetableError: 'Hiba a betöltés közben',
   again: 'Újra',
@@ -55,6 +56,18 @@ export const Strings = {
   passwordsNotMatch: {
     title: 'Hiba',
     message: 'A két jelszó nem egyezik.'
+  },
+  getClassesFailure: {
+    title: 'Hiba',
+    message: 'Nem sikerült lekérdezni a kurzusaidat.'
+  },
+  absenceSucces: {
+    title: 'Hiányzás',
+    message: 'Sikeresen jelezted a hiányzást.'
+  },
+  absenceFailure: {
+    title: 'Hiba',
+    message: 'Nem sikerült elküldeni a hiányzásokat.'
   },
 
   //Contact

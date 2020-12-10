@@ -2,8 +2,11 @@ import { Data } from '../../model/data/data';
 import { DataResponse } from '../../model/data/dataResponse';
 import { News } from '../../model/news/news';
 import { NewsResponse } from '../../model/news/newsResponse';
-import { Timetable } from '../../model/timetable/timetable';
-import { TimetableResponse } from '../../model/timetable/timetableResponse';
+import { Day, Timetable } from '../../model/timetable/timetable';
+import {
+  Class,
+  TimetableResponse
+} from '../../model/timetable/timetableResponse';
 
 const MONTH = [
   '',
@@ -46,13 +49,27 @@ const dateHelper = (date: Date) => {
 };
 
 export const timetableResponseToTimetable = (
-  timetableResponse: TimetableResponse
+  timetableResponse: TimetableResponse,
+  classes: Class[]
 ): Timetable => {
   const timetable: Timetable = { places: [] };
   places.forEach(p => {
     const place = timetableResponse.places.find(f => f.place === p);
     if (place) {
-      timetable.places.push(place);
+      timetableResponse.places.forEach(p => {
+        var days: Day[] = [];
+        p.days.forEach(d => {
+          var courses: Class[] = [];
+          d.classes.forEach(c => {
+            var course = classes.find(course => course.id === c);
+            if (course) {
+              courses.push(course);
+            }
+          });
+          days.push({ day: d.day, classes: courses });
+        });
+        timetable.places.push({ place: p.place, days: days });
+      });
     } else {
       timetable.places.push({
         place: p,

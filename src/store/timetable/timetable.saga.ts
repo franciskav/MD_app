@@ -1,4 +1,5 @@
 import { all, put, takeEvery } from 'redux-saga/effects';
+import { Class } from '../../model/timetable/timetable';
 import { TimetableResponse } from '../../model/timetable/timetableResponse';
 import { timetableResponseToTimetable } from '../../utility/helper/mapper';
 import timetableService from '../../utility/services/timetableService';
@@ -20,8 +21,8 @@ function* watchGet() {
 function* getTimetableActionWatcher(action: GetTimetableRequestAction) {
   try {
     const response: TimetableResponse = yield timetableService.getTimetable();
-    const timetable = timetableResponseToTimetable(response);
-    //console.log('RESPONSE', timetable);
+    const classes: Class[] = yield timetableService.getClasses(response);
+    const timetable = timetableResponseToTimetable(response, classes);
     yield put(getTimetableSuccessActionCreator(timetable));
   } catch (error) {
     console.log('error', error.code);

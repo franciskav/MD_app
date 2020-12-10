@@ -5,7 +5,8 @@ import {
   GET_MYCLASSES_SUCCESS,
   POST_ABSENCE_FAILURE,
   POST_ABSENCE_REQUEST,
-  POST_ABSENCE_SUCCESS
+  POST_ABSENCE_SUCCESS,
+  SET_SELECTED
 } from './absence.actions';
 import { AbsenceStore, initialAbsenceStore } from './absence.store';
 
@@ -56,6 +57,11 @@ export const absenceReducer = (
         getError: action.reason,
         postError: undefined,
         isLoading: false
+      };
+    case SET_SELECTED:
+      return {
+        ...state,
+        classes: action.classes
       };
     default:
       return state;

@@ -4,4 +4,5 @@ export interface Class {
   description: string;
   teacher: string;
   time: string;
+  selected: boolean;
 }

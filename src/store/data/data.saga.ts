@@ -35,7 +35,6 @@ function* postDataActionWatcher(action: PostDataRequestAction) {
   } catch (error) {
     console.log(error);
     yield put(postDataFailActionCreator(error));
-    //action.failAction();
   }
 }
 
@@ -48,6 +47,5 @@ function* getDataActionWatcher(action: GetDataRequestAction) {
   } catch (error) {
     console.log(error);
     yield put(getDataFailActionCreator(error));
-    //action.failAction();
   }
 }
