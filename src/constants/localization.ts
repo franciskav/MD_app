@@ -25,10 +25,11 @@ export const Strings = {
   logout: 'Kijelentkezés',
   singup: 'Regisztráció',
   goSignup: 'Már van fiókod? Jelentkezz be!',
-  emptyTimetable: 'Nincs az adott napon óra',
+  emptyTimetable: 'Az adott napon és helyszínen nincen óra.',
   timetable: 'Órarend',
   timetableError: 'Hiba a betöltés közben',
   again: 'Újra',
+  error: 'Hiba',
 
   //Alerts
   applySucces: {

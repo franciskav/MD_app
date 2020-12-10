@@ -60,7 +60,7 @@ const DataScreen = ({ navigation }: DataScreenProps) => {
   };
   const failAction = () => {
     if (error) {
-      Alert.alert('Hiba', error);
+      Alert.alert(Strings.error, error);
     }
   };
   const onTermsPressed = () => {

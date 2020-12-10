@@ -63,7 +63,7 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
   };
   const failAction = () => {
     if (error) {
-      Alert.alert('Hiba', ErrorCode[error]);
+      Alert.alert(Strings.error, ErrorCode[error]);
     }
   };
   const onLoginPress = () => {
