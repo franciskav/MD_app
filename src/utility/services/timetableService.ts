@@ -25,15 +25,11 @@ class TimetableService {
           semester.forEach(place => {
             var days: Day[] = [];
             place.forEach(day => {
-              var classes: Class[] = [];
+              var classes: string[] = [];
               day.forEach(course => {
-                classes.push({
-                  id: course.key,
-                  agelimit: course.val().agelimit,
-                  description: course.val().description,
-                  teacher: course.val().teacher,
-                  time: course.val().time
-                });
+                if (course.key) {
+                  classes.push(course.key);
+                }
               });
               days.push({ day: day.key, classes: classes });
             });
@@ -50,6 +46,50 @@ class TimetableService {
       }
     }
     return timetable;
+  };
+
+  getClasses = async (timetable: TimetableResponse) => {
+    var keys: string[] = [];
+    var classes: Class[] = [];
+
+    timetable.places.forEach(p => {
+      p.days.forEach(d => {
+        d.classes.forEach(c => {
+          keys.push(c);
+        });
+      });
+    });
+
+    const pArray = keys.map(async key => {
+      const response = await this.getClass(key);
+      return response;
+    });
+    classes = await Promise.all(pArray);
+    return classes;
+  };
+
+  getClass = async (key: string) => {
+    var classResponse: Class = {
+      id: '',
+      teacher: '',
+      description: '',
+      agelimit: '',
+      time: ''
+    };
+
+    await firebase
+      .database()
+      .ref('classes/' + key)
+      .once('value', snapshot => {
+        classResponse = {
+          id: snapshot.key,
+          teacher: snapshot.val().teacher,
+          description: snapshot.val().description,
+          agelimit: snapshot.val().agelimit,
+          time: snapshot.val().time
+        };
+      });
+    return classResponse;
   };
 }
 
