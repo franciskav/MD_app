@@ -1,4 +1,6 @@
 import { AnyAction, combineReducers, Reducer } from 'redux';
+import { absenceReducer } from './src/store/absence/absence.reducer';
+import { AbsenceStore } from './src/store/absence/absence.store';
 import { applyReducer } from './src/store/apply/apply.reducer';
 import { ApplyStore } from './src/store/apply/apply.store';
 import { dataReducer } from './src/store/data/data.reducer';
@@ -22,6 +24,7 @@ export interface IAppStore {
   timetable: TimetableStore;
   apply: ApplyStore;
   data: DataStore;
+  absence: AbsenceStore;
 }
 
 export interface IApplicationState {
@@ -45,7 +48,8 @@ export const appReducer = combineReducers<IAppStore>({
   news: newsReducer,
   timetable: timetableReducer,
   apply: applyReducer,
-  data: dataReducer
+  data: dataReducer,
+  absence: absenceReducer
 });
 
 export const appRootReducer: Reducer<IAppStore> = (
