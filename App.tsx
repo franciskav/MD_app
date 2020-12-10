@@ -77,7 +77,8 @@ function TabStackScreen() {
         labelStyle: styles.tabText,
         activeTintColor: Colors.yellow,
         inactiveTintColor: Colors.lightGrey,
-        style: styles.tabBackground
+        style: styles.tabBackground,
+        keyboardHidesTabBar: true
       }}
     >
       <TabStack.Screen
