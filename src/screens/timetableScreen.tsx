@@ -137,10 +137,9 @@ const TimetableScreen = () => {
           )}
         </View>
       </PagesTemplate>
-      {showTeacher !== '' && (
+      {showTeacher !== '' && Teachers[showTeacher] && (
         <TeachersTemplate
           onPress={onPressTeacher}
-          //show={showTeacher}
           title={Teachers[showTeacher].name}
           description={Teachers[showTeacher].description}
         />
