@@ -11,7 +11,7 @@ export interface Place {
 
 export interface Day {
   day: string | null;
-  classes: Class[];
+  classes: string[];
 }
 
 export interface Class {
