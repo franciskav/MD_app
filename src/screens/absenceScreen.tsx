@@ -140,7 +140,7 @@ const AbsenceScreen = () => {
   const emptyComponent = () => {
     return (
       <View>
-        <Text style={styles.emptyText}>{Strings.emptyTimetable}</Text>
+        <Text style={styles.emptyText}>{Strings.emptyClasses}</Text>
       </View>
     );
   };
