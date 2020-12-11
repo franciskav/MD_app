@@ -22,7 +22,6 @@ export const timetableReducer = (
         isLoading: true
       };
     case GET_TIMETABLE_SUCCESS:
-      //console.log('Action.RESPONSE', action.response);
       return {
         ...state,
         error: undefined,

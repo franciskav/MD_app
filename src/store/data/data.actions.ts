@@ -11,7 +11,6 @@ export const GET_DATA_FAILURE = 'GET_DATA_FAILURE';
 export interface PostDataRequestAction {
   type: typeof POST_DATA_REQUEST;
   successAction: () => void;
-  //failAction: () => void;
   dataRequest: DataRequest;
 }
 
@@ -49,12 +48,10 @@ export type DataActions =
 export const postData = (
   dataRequest: DataRequest,
   successAction: () => void
-  //failAction: () => void
 ): PostDataRequestAction => ({
   type: POST_DATA_REQUEST,
   dataRequest: dataRequest,
   successAction
-  //failAction
 });
 
 export const postDataSuccessActionCreator = (): PostDataSuccessAction => ({

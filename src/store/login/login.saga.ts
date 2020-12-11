@@ -20,7 +20,6 @@ function* watchPost() {
 function* postLoginActionWatcher(action: PostLoginRequestAction) {
   try {
     const response = yield loginService.postLogin(action.loginRequest);
-    //console.log(response.user.refreshToken);
     yield AsyncStorage.setItem(AsyncStorageKeys.UID, response.user.uid);
     yield AsyncStorage.setItem(
       AsyncStorageKeys.REFRESH_TOKEN,
@@ -32,6 +31,5 @@ function* postLoginActionWatcher(action: PostLoginRequestAction) {
     console.log('bejelentkezés hiba');
     console.log(error.code);
     yield put(postLoginFailActionCreator(error.code));
-    //action.failAction();
   }
 }

@@ -7,7 +7,6 @@ export const POST_SIGNUP_FAILURE = 'POST_SIGNUP_FAILURE';
 export interface PostSignupRequestAction {
   type: typeof POST_SIGNUP_REQUEST;
   successAction: () => void;
-  //failAction: () => void;
   signupRequest: SignupRequest;
 }
 
@@ -28,12 +27,10 @@ export type SignupActions =
 export const postSignup = (
   signupRequest: SignupRequest,
   successAction: () => void
-  //failAction: () => void
 ): PostSignupRequestAction => ({
   type: POST_SIGNUP_REQUEST,
   signupRequest: signupRequest,
   successAction
-  //failAction
 });
 
 export const postSignupSuccessActionCreator = (): PostSignupSuccessAction => ({

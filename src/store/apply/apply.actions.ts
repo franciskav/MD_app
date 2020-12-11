@@ -7,7 +7,6 @@ export const POST_APPLY_FAILURE = 'POST_APPLY_FAILURE';
 export interface PostApplyRequestAction {
   type: typeof POST_APPLY_REQUEST;
   successAction: () => void;
-  //failAction: () => void
   applyRequest: ApplyRequest;
 }
 
@@ -28,11 +27,9 @@ export type ApplyActions =
 export const postApply = (
   applyRequest: ApplyRequest,
   successAction: () => void
-  //failAction: () => void
 ): PostApplyRequestAction => ({
   type: POST_APPLY_REQUEST,
   successAction,
-  //failAction,
   applyRequest: applyRequest
 });
 

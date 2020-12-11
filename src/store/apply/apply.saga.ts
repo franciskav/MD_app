@@ -21,12 +21,10 @@ function* postApplyActionWatcher(action: PostApplyRequestAction) {
   try {
     const uid = yield AsyncStorage.getItem(AsyncStorageKeys.UID);
     const response = yield applyService.postApply(action.applyRequest, uid);
-    //console.log('APPLY RESPONSE', response);
     yield put(postApplySuccessActionCreator());
     action.successAction();
   } catch (error) {
     console.log(error);
     yield put(postApplyFailActionCreator(error));
-    //action.failAction();
   }
 }

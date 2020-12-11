@@ -21,8 +21,6 @@ function* getNewsActionWatcher(action: GetNewsRequestAction) {
   try {
     const response: NewsResponse[] = yield newsService.getNews();
     const news = newsResponseToNews(response);
-    //console.log('RESPONSE', response);
-    //console.log('NEWS', news);
     yield put(getNewsSuccessActionCreator(news));
   } catch (error) {
     console.log('error', error.code);
