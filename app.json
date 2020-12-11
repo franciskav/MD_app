@@ -3,6 +3,7 @@
     "name": "MDapp",
     "slug": "MDapp",
     "version": "1.0.0",
+    "description": "Social app for MD Dance School",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -16,6 +17,9 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "hu.franciskav.md_app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
