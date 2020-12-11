@@ -11,7 +11,6 @@ import PagesTemplate from '../components/pages/pagesTemplate';
 import { Colors } from '../constants/colors';
 import { Fonts, FontSizes } from '../constants/fonts';
 import { Margins } from '../constants/margins';
-import CheckboxRow from '../components/checkbox/checkboxRow';
 import { FlatList, ScrollView, State } from 'react-native-gesture-handler';
 import { Spaces } from '../constants/spaces';
 import DarkTextInput from '../components/text-input/darkTextInput';
@@ -28,10 +27,10 @@ import {
   setSelected
 } from '../store/absence/absence.actions';
 import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
-import { Class } from '../model/absence/class';
 import { AbsenceRequest } from '../model/absence/absenceRequest';
 
 const AbsenceScreen = () => {
+  //state
   const [fromDate, setFromDate] = useState(new Date(Date.now()));
   const [showFrom, setShowFrom] = useState(false);
   const [toDate, setToDate] = useState(new Date(Date.now()));
@@ -48,10 +47,12 @@ const AbsenceScreen = () => {
 
   const dispatch = useDispatch();
 
+  //kurzusok lekérése képernyő megnyitásakor
   useEffect(() => {
     dispatch(getMyClasses());
   }, [dispatch]);
 
+  //alert ha hiba volt
   useEffect(() => {
     failAction();
   }, [getError, postError]);
@@ -68,10 +69,12 @@ const AbsenceScreen = () => {
     }
   };
 
+  //alert sikeres küldés esetén
   const successAction = () => {
     Alert.alert(Strings.absenceSucces.title, Strings.absenceSucces.message);
   };
 
+  //űrlap elküldése
   const onSendPress = () => {
     const courses: string[] = [];
     classes.forEach(c => {
@@ -79,6 +82,7 @@ const AbsenceScreen = () => {
         courses.push(c.id);
       }
     });
+
     const request: AbsenceRequest = {
       classes: courses,
       from: new Date(fromDate).getTime(),
@@ -92,20 +96,24 @@ const AbsenceScreen = () => {
   const onFromButtonPress = () => {
     setShowFrom(!showFrom);
   };
+
   const onToButtonPress = () => {
     setShowTo(!showTo);
   };
+
   const onFromChange = (_event: any, selectedDate: any) => {
     const currentDate = selectedDate || fromDate;
     setShowFrom(Platform.OS === 'ios');
     setFromDate(currentDate);
   };
+
   const onToChange = (_event: any, selectedDate: any) => {
     const currentDate = selectedDate || toDate;
     setShowTo(Platform.OS === 'ios');
     setToDate(currentDate);
   };
 
+  //kurzus lista elem
   const renderItem = (itemInfo: ListRenderItemInfo<any>) => {
     const { teacher, description, id, selected } = itemInfo.item;
 
@@ -128,6 +136,7 @@ const AbsenceScreen = () => {
     );
   };
 
+  //üres lista elem
   const emptyComponent = () => {
     return (
       <View>
@@ -143,8 +152,8 @@ const AbsenceScreen = () => {
           style={styles.container}
           contentContainerStyle={styles.center}
         >
+          {/* kurzusok lista */}
           {renderLabel(Strings.fromWhichClasses)}
-
           <FlatList
             key={1}
             data={classes}
@@ -155,6 +164,7 @@ const AbsenceScreen = () => {
             extraData={setSelected}
           />
 
+          {/* dátumválasztó */}
           <View style={[styles.row, Margins.mtExtraLarge]}>
             <DateButton
               onPress={onFromButtonPress}
@@ -195,6 +205,7 @@ const AbsenceScreen = () => {
             />
           )}
 
+          {/* megjegyzés */}
           <DarkTextInput
             style={[styles.textInput, Margins.mtExtraLarge]}
             value={comment}

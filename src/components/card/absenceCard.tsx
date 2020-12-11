@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { Fonts, FontSizes } from '../../constants/fonts';
 import { Spaces } from '../../constants/spaces';
-import { Margins } from '../../constants/margins';
 
 interface Props {
   onPress: () => void;
@@ -59,10 +58,12 @@ const styles = StyleSheet.create({
     paddingVertical: Spaces.small,
     borderTopColor: Colors.middleGrey,
     borderTopWidth: 4,
+    //iOS
     shadowColor: Colors.middleGrey,
     shadowOpacity: 1,
     shadowRadius: 1,
     shadowOffset: { height: 1, width: 1 },
+    //Android
     elevation: 2
   },
   checkedDescriptionText: {

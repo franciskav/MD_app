@@ -1,15 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  UIManager,
-  View,
-  Image
-} from 'react-native';
+import { Platform, StyleSheet, UIManager, View, Image } from 'react-native';
 import { configureStore } from './config/storeconfig';
 import { Screens } from './src/constants/screens';
 import LoginScreen from './src/screens/loginSreen';

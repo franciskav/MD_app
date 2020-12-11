@@ -13,7 +13,6 @@ import { Margins } from '../../constants/margins';
 
 interface Props {
   onPress: () => void;
-  onLongPress?: () => void;
   style?: StyleProp<ViewStyle>;
   time: string;
   description: string;
@@ -24,7 +23,6 @@ interface Props {
 
 const TimetableCard = ({
   onPress,
-  onLongPress,
   style,
   time,
   description,
@@ -35,7 +33,6 @@ const TimetableCard = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      onLongPress={onLongPress}
       style={[styles.buttonContainer, style]}
       disabled={disabled}
     >
@@ -62,10 +59,12 @@ const styles = StyleSheet.create({
     paddingVertical: Spaces.medium,
     borderTopColor: Colors.yellow,
     borderTopWidth: 4,
+    //iOS
     shadowColor: Colors.middleGrey,
     shadowOpacity: 1,
     shadowRadius: 1,
     shadowOffset: { height: 1, width: 1 },
+    //Android
     elevation: 2
   },
   timeText: {

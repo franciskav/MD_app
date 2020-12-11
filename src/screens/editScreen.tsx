@@ -1,6 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import PagesTemplate from '../components/pages/pagesTemplate';
 import { useSelector, useDispatch } from 'react-redux';
 import { IApplicationState } from '../../store';
@@ -9,7 +9,6 @@ import DarkTextInput from '../components/text-input/darkTextInput';
 import { Colors } from '../constants/colors';
 import { Margins } from '../constants/margins';
 import RoundButton from '../components/button/roundButton';
-import { Spaces } from '../constants/spaces';
 import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
 import { Strings } from '../constants/localization';
 
@@ -18,31 +17,37 @@ interface EditScreenProps {
 }
 
 const EditScreen = ({ navigation }: EditScreenProps) => {
-  const { data, error, isLoading } = useSelector(
-    (state: IApplicationState) => state.app.data
-  );
-
+  //state
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [disabled, setDisabled] = useState(true);
 
+  const { data, error, isLoading } = useSelector(
+    (state: IApplicationState) => state.app.data
+  );
+
   const dispatch = useDispatch();
 
+  //személyes adatok lekérése
   useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
 
+  //alert ha hiba volt
   useEffect(() => {
     failAction();
   }, [error]);
 
+  //mezők beállítása
   useEffect(() => {
     setName(data.name);
   }, [data.name]);
+
   useEffect(() => {
     setPhone(data.phone);
   }, [data.phone]);
+
   useEffect(() => {
     setAddress(data.address);
   }, [data.address]);
@@ -51,6 +56,7 @@ const EditScreen = ({ navigation }: EditScreenProps) => {
     setButtonDisabled();
   }, [name, phone, address]);
 
+  //alert sikeres küldés esetén
   const successAction = () => {
     Alert.alert(Strings.editSucces.title, Strings.editSucces.message);
   };
@@ -61,10 +67,12 @@ const EditScreen = ({ navigation }: EditScreenProps) => {
     }
   };
 
+  //vissza navigálás
   const onBackPress = () => {
     navigation.pop();
   };
 
+  //űrlap elküldése
   const onSendPress = () => {
     dispatch(
       postData(
@@ -79,6 +87,8 @@ const EditScreen = ({ navigation }: EditScreenProps) => {
       )
     );
   };
+
+  //küldés gomb tiltása, ha nincsenek kitöltve a mezők
   const setButtonDisabled = () => {
     setDisabled(name === '' || phone === '' || address === '');
   };
@@ -124,6 +134,8 @@ const EditScreen = ({ navigation }: EditScreenProps) => {
   );
 };
 
+const MAX_WIDTH = 550;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -134,7 +146,7 @@ const styles = StyleSheet.create({
   },
   text: {
     width: '90%',
-    maxWidth: 550
+    maxWidth: MAX_WIDTH
   }
 });
 

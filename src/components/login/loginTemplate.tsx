@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { Colors } from '../../constants/colors';
 import { Margins } from '../../constants/margins';
 import { Icons } from '../../constants/icons';
@@ -8,6 +8,7 @@ import { Fonts, FontSizes } from '../../constants/fonts';
 import { ScrollView } from 'react-native-gesture-handler';
 import RoundButton from '../button/roundButton';
 import Constants from 'expo-constants';
+import { Spaces } from '../../constants/spaces';
 
 interface Props {
   buttonText: string;
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.darkGrey,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 15,
+    paddingHorizontal: Spaces.medium,
     marginTop: Constants.statusBarHeight
   },
   simpleText: {

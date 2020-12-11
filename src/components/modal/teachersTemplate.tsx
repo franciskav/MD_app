@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View, Modal, Text, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Colors } from '../../constants/colors';
 import { Fonts, FontSizes } from '../../constants/fonts';
-import { Teachers } from '../../constants/localization';
 import { Margins } from '../../constants/margins';
 import { Spaces } from '../../constants/spaces';
 

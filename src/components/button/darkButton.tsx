@@ -40,10 +40,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: Spaces.normal,
+    //iOS
     shadowColor: Colors.middleGrey,
     shadowOpacity: 1,
     shadowRadius: 1,
     shadowOffset: { height: 1, width: 1 },
+    //Android
     elevation: 2
   },
   buttonText: {

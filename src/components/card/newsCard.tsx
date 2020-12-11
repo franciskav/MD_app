@@ -8,8 +8,7 @@ import {
   Text,
   View,
   Image,
-  Dimensions,
-  ImageSourcePropType
+  Dimensions
 } from 'react-native';
 import { Fonts, FontSizes } from '../../constants/fonts';
 import { Spaces } from '../../constants/spaces';
@@ -61,6 +60,7 @@ const NewsCard = ({
   );
 };
 
+//méret kiszámítása
 const WINDOW_WIDTH =
   Dimensions.get('window').width > 550
     ? 550 * 0.9

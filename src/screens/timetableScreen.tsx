@@ -11,7 +11,6 @@ import { getTimetable } from '../store/timetable/timetable.actions';
 import { FlatList } from 'react-native-gesture-handler';
 import { Dropdown } from 'react-native-material-dropdown';
 import { Spaces } from '../constants/spaces';
-import { Class, Day, Place, Timetable } from '../model/timetable/timetable';
 import RoundButton from '../components/button/roundButton';
 import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
 import { Margins } from '../constants/margins';
@@ -19,13 +18,14 @@ import TeachersTemplate from '../components/modal/teachersTemplate';
 import { Strings, Teachers } from '../constants/localization';
 
 const TimetableScreen = () => {
-  const { timetable, error, isLoading } = useSelector(
-    (state: IApplicationState) => state.app.timetable
-  );
-
+  //state
   const [place, setPlace] = useState(0);
   const [day, setDay] = useState('monday_wednesday');
   const [showTeacher, setShowTeacher] = useState('');
+
+  const { timetable, error, isLoading } = useSelector(
+    (state: IApplicationState) => state.app.timetable
+  );
 
   const buttons = [
     'Arany János\nStúdió',
@@ -50,10 +50,12 @@ const TimetableScreen = () => {
 
   const dispatch = useDispatch();
 
+  //órarendadatok lekérése
   useEffect(() => {
     dispatch(getTimetable());
   }, [dispatch]);
 
+  //órát tartó tanár adatai
   const onPressTeacher = () => {
     setShowTeacher('');
   };

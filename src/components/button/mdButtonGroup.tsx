@@ -1,15 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { ButtonGroup, ButtonGroupProps } from 'react-native-elements';
 import { Colors } from '../../constants/colors';
-import { Fonts, FontSizes } from '../../constants/fonts';
-
-interface Props {
-  style?: StyleProp<ViewStyle>;
-  onPress: () => void;
-  selectedIndex: number;
-  buttons: string[];
-}
+import { Fonts } from '../../constants/fonts';
 
 const MDButtonGroup = (props: ButtonGroupProps) => {
   return (

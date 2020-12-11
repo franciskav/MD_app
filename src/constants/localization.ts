@@ -70,7 +70,7 @@ export const Strings = {
     message: 'Nem sikerült elküldeni a hiányzásokat.'
   },
 
-  //Contact
+  //Névjegy adatok
   email: { title: 'E-mail:', data: 'masterdancetanciskola@gmail.com' },
   phone: { title: 'Tel.:', data: '+36 (30) 633-6682' },
   arany: {
@@ -85,6 +85,7 @@ export const Strings = {
   }
 };
 
+//Firebase hibakódok a bejelentkezéshez és regisztrációhoz
 export const ErrorCode = {
   ['auth/email-already-in-use']: 'Ez az email cím már használatban van.',
   ['auth/invalid-email']: 'Nem megfelelő email cím.',
@@ -96,6 +97,7 @@ export const ErrorCode = {
   ['auth/wrong-password']: 'Hibás jelszó'
 };
 
+//Tánctanárok leírása
 export const Teachers = {
   ['Alex']: {
     name: 'Tillinger Alex',

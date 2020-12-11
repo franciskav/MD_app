@@ -3,10 +3,6 @@ import { Colors } from '../../constants/colors';
 import { StyleSheet, TextInput, TextInputProps } from 'react-native';
 import { Fonts, FontSizes } from '../../constants/fonts';
 
-interface Props {
-  ref: string;
-}
-
 const DarkTextInput = (props: TextInputProps) => {
   return <TextInput {...props} style={[styles.textInput, props.style]} />;
 };

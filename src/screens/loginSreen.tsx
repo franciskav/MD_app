@@ -7,12 +7,9 @@ import { Screens } from '../constants/screens';
 import { Colors } from '../constants/colors';
 import { useDispatch, useSelector } from 'react-redux';
 import { IApplicationState } from '../../store';
-import { ActivityIndicator, Alert } from 'react-native';
+import { Alert } from 'react-native';
 import { postLogin } from '../store/login/login.actions';
 import MDActivityIndicator from '../components/activityIndicator/mdActivityIndicator';
-import { postLogout } from '../store/logout/logout.actions';
-import AsyncStorage from '@react-native-community/async-storage';
-import { AsyncStorageKeys } from '../constants/asyncStorageKeys';
 import { ErrorCode, Strings } from '../constants/localization';
 
 interface LoginScreenProps {
@@ -20,6 +17,7 @@ interface LoginScreenProps {
 }
 
 const LoginScreen = ({ navigation }: LoginScreenProps) => {
+  //state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
@@ -29,6 +27,7 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
   );
   const dispatch = useDispatch();
 
+  //alert hiba esetén
   useEffect(() => {
     failAction();
   }, [error]);
@@ -39,20 +38,25 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
 
   const onLoginPress = () => {
     dispatch(postLogin({ email: email, password: password }, successAction));
-    //console.log(AsyncStorage.getItem(AsyncStorageKeys.UID));
   };
+
+  //sikeres küldés esetén továbbnavigálunk
   const successAction = () => {
     navigation.replace(Screens.Home);
   };
+
   const failAction = () => {
     if (error) {
       Alert.alert(Strings.error, ErrorCode[error]);
     }
   };
+
+  //váltás a regisztrációra
   const onRegisterPress = () => {
     navigation.replace(Screens.SignUp);
   };
 
+  //küldés gomb tiltása, ha nincsenek kitöltve a mezők
   const setButtonDisabled = () => {
     setDisabled(email === '' || password === '');
   };

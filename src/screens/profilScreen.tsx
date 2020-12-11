@@ -36,13 +36,13 @@ const ProfilScreen = ({ navigation }: ProfilScreenProps) => {
     navigation.navigate(Screens.Edit);
   };
   const onTermsPress = () => {
-    //navigation.navigate(Screens.Terms);
     Linking.openURL(Urls.PRIVACY_POLICY);
   };
   const onContactPress = () => {
     navigation.navigate(Screens.Contact);
   };
 
+  //közösségi oldalak megnyitása
   const onFacebookPress = () => {
     Linking.openURL(Urls.FACEBOOK);
   };
@@ -57,9 +57,11 @@ const ProfilScreen = ({ navigation }: ProfilScreenProps) => {
     dispatch(postLogout(successAction));
   };
 
+  //sikeres küldés esetén továbbnavigálunk
   const successAction = () => {
     navigation.replace(Screens.Login);
   };
+  //alert hiba esetén
   const failAction = () => {
     if (error) {
       Alert.alert(Strings.logoutFailure.title, Strings.logoutFailure.message);

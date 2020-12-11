@@ -5,7 +5,6 @@ import { Colors } from '../constants/colors';
 import { Fonts, FontSizes } from '../constants/fonts';
 import { Margins } from '../constants/margins';
 import { Dropdown } from 'react-native-material-dropdown';
-import CheckboxRow from '../components/checkbox/checkboxRow';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Spaces } from '../constants/spaces';
 import DarkTextInput from '../components/text-input/darkTextInput';
@@ -16,15 +15,35 @@ import { postApply } from '../store/apply/apply.actions';
 import { Strings } from '../constants/localization';
 
 const ApplyScreen = () => {
+  //state
+  const [danceStyle, setDanceStyle] = useState('hip_hop');
+  const [place, setPlace] = useState('astoria');
+  const [startDate, setStartDate] = useState('today');
+  const [comment, setComment] = useState('');
+
   const { apply, error, isLoading } = useSelector(
     (state: IApplicationState) => state.app.apply
   );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     failAction();
   }, [error]);
 
+  //alert sikeres küldés esetén
+  const successAction = () => {
+    Alert.alert(Strings.applySucces.title, Strings.applySucces.message);
+  };
+
+  //alert hiba esetén
+  const failAction = () => {
+    if (error) {
+      Alert.alert(Strings.applyFailure.title, Strings.applyFailure.message);
+    }
+  };
+
+  //űrlap elküldése
   const onSendPress = () => {
     dispatch(
       postApply(
@@ -38,19 +57,7 @@ const ApplyScreen = () => {
       )
     );
   };
-  const successAction = () => {
-    Alert.alert(Strings.applySucces.title, Strings.applySucces.message);
-  };
-  const failAction = () => {
-    if (error) {
-      Alert.alert(Strings.applyFailure.title, Strings.applyFailure.message);
-    }
-  };
 
-  const [danceStyle, setDanceStyle] = useState('hip_hop');
-  const [place, setPlace] = useState('astoria');
-  const [startDate, setStartDate] = useState('today');
-  const [comment, setComment] = useState('');
   return (
     <View style={styles.container}>
       <PagesTemplate title={Strings.apply} canGoBack={false}>
@@ -64,14 +71,6 @@ const ApplyScreen = () => {
           {renderDropdown(places, place, setPlace)}
           {renderLabel(Strings.whenYouStart)}
           {renderDropdown(startDates, startDate, setStartDate)}
-
-          {/* {renderLabel('Melyik napokon jönnél?')}
-          {renderLabel(times[0].day)}
-          {times[0].time.map(item => renderCheckBox(item, 0))}
-          {renderLabel(times[1].day)}
-          {times[1].time.map(item => renderCheckBox(item, 1))}
-          {renderLabel(times[2].day)}
-          {times[2].time.map(item => renderCheckBox(item, 2))} */}
 
           <DarkTextInput
             style={[styles.textInput, Margins.mtLarge]}
@@ -105,25 +104,7 @@ const renderDropdown = (
       value={value}
       onChangeText={onChangeText}
       containerStyle={styles.dropdownContainer}
-      //style={styles.dropdown}
       itemTextStyle={styles.dropdownText}
-    />
-  );
-};
-
-const renderCheckBox = (item: CheckboxItem, idx: number) => {
-  const onPress = () => {
-    const index = times[idx].time.findIndex(time => item.text === time.text);
-    times[idx].time[index].checked = !times[idx].time[index].checked;
-    console.warn(`pressed${idx} ${index} ${item.checked}`);
-  };
-  return (
-    <CheckboxRow
-      checked={item.checked}
-      onPress={onPress}
-      title={item.text}
-      titleStyle={styles.checkboxTitle}
-      style={styles.checkbox}
     />
   );
 };
@@ -172,84 +153,6 @@ const styles = StyleSheet.create({
     maxWidth: MAX_WIDTH
   }
 });
-
-const times: Times[] = [
-  {
-    day: 'Hétfő & Szerda',
-    time: [
-      {
-        checked: false,
-        text: '15:00'
-      },
-      {
-        checked: false,
-        text: '16:00'
-      },
-      {
-        checked: false,
-        text: '17:00'
-      },
-      {
-        checked: false,
-        text: '18:00'
-      },
-      {
-        checked: false,
-        text: '19:10'
-      },
-      {
-        checked: false,
-        text: '20:15'
-      }
-    ]
-  },
-  {
-    day: 'Kedd & Csütörtök',
-    time: [
-      {
-        checked: false,
-        text: '15:00'
-      },
-      {
-        checked: false,
-        text: '16:00'
-      },
-      {
-        checked: false,
-        text: '17:00'
-      },
-      {
-        checked: false,
-        text: '18:00'
-      },
-      {
-        checked: false,
-        text: '19:10'
-      },
-      {
-        checked: false,
-        text: '20:15'
-      }
-    ]
-  },
-  {
-    day: 'Péntek',
-    time: [
-      {
-        checked: false,
-        text: '16:00'
-      },
-      {
-        checked: false,
-        text: '17:15'
-      },
-      {
-        checked: false,
-        text: '19:00'
-      }
-    ]
-  }
-];
 
 const danceStyles: DropdownData[] = [
   {

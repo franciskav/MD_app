@@ -6,7 +6,6 @@ import { Margins } from '../constants/margins';
 import { Screens } from '../constants/screens';
 import { Colors } from '../constants/colors';
 import { useDispatch, useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-community/async-storage';
 import CheckboxRow from '../components/checkbox/checkboxRow';
 import { View } from 'react-native';
 import { IApplicationState } from '../../store';
@@ -20,6 +19,7 @@ interface DataScreenProps {
 }
 
 const DataScreen = ({ navigation }: DataScreenProps) => {
+  //state
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
@@ -33,6 +33,7 @@ const DataScreen = ({ navigation }: DataScreenProps) => {
 
   const dispatch = useDispatch();
 
+  //alert hiba esetén
   useEffect(() => {
     failAction();
   }, [error]);
@@ -41,6 +42,18 @@ const DataScreen = ({ navigation }: DataScreenProps) => {
     setButtonDisabled();
   }, [name, phone, address, termsChecked, dataChecked]);
 
+  //sikeres küldés esetén továbbnavigálunk
+  const successAction = () => {
+    navigation.replace(Screens.Home);
+  };
+
+  const failAction = () => {
+    if (error) {
+      Alert.alert(Strings.error, error);
+    }
+  };
+
+  //űrlap elküldése
   const onSendPress = () => {
     dispatch(
       postData(
@@ -55,20 +68,16 @@ const DataScreen = ({ navigation }: DataScreenProps) => {
       )
     );
   };
-  const successAction = () => {
-    navigation.replace(Screens.Home);
-  };
-  const failAction = () => {
-    if (error) {
-      Alert.alert(Strings.error, error);
-    }
-  };
+
   const onTermsPressed = () => {
     setTermsChecked(!termsChecked);
   };
+
   const onDataPressed = () => {
     setDataChecked(!dataChecked);
   };
+
+  //küldés gomb tiltása, ha nincsenek kitöltve a mezők
   const setButtonDisabled = () => {
     setDisabled(
       name === '' ||
@@ -78,6 +87,7 @@ const DataScreen = ({ navigation }: DataScreenProps) => {
         dataChecked === false
     );
   };
+
   return (
     <LoginTemplate
       buttonText={Strings.send}

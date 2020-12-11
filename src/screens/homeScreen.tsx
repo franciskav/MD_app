@@ -29,6 +29,7 @@ const HomeScreen = ({ navigation }: LoginScreenProps) => {
 
   const dispatch = useDispatch();
 
+  //hírek lekérése képernyő megnyitásakor
   useEffect(() => {
     dispatch(getNews());
   }, [dispatch]);
@@ -37,11 +38,13 @@ const HomeScreen = ({ navigation }: LoginScreenProps) => {
     dispatch(getNews());
   };
 
+  //listaelem részletezésének megnyitása
   const onItemPress = (id: string) => {
     const item = news.find((n: News) => n.id === id);
     navigation.navigate(Screens.NewsDetails, { item });
   };
 
+  //listaelem
   const renderItem = (itemInfo: ListRenderItemInfo<any>) => {
     const { id, date, title, image } = itemInfo.item;
     return (
@@ -55,6 +58,7 @@ const HomeScreen = ({ navigation }: LoginScreenProps) => {
     );
   };
 
+  //elemeket elválasztó komponens
   const separatorComponent = () => {
     return <View style={{ height: Spaces.extraLarge }} />;
   };

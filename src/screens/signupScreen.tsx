@@ -6,9 +6,6 @@ import { Margins } from '../constants/margins';
 import { Screens } from '../constants/screens';
 import { Colors } from '../constants/colors';
 import { useDispatch, useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-community/async-storage';
-import CheckboxRow from '../components/checkbox/checkboxRow';
-import { View } from 'react-native';
 import { IApplicationState } from '../../store';
 import { postSignup } from '../store/signup/signup.actions';
 import { Alert } from 'react-native';
@@ -20,6 +17,7 @@ interface LoginScreenProps {
 }
 
 const SignupScreen = ({ navigation }: LoginScreenProps) => {
+  //state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password_2, setPassword_2] = useState('');
@@ -31,6 +29,7 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
 
   const dispatch = useDispatch();
 
+  //alert hiba esetén
   useEffect(() => {
     failAction();
   }, [error]);
@@ -39,6 +38,7 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
     setButtonDisabled();
   }, [email, password, password_2]);
 
+  //jelszavak ellenőrzése regsiztráció előtt
   const onSignupPress = () => {
     if (password === password_2) {
       dispatch(
@@ -58,6 +58,7 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
     }
   };
 
+  //sikeres küldés esetén továbbnavigálunk
   const successAction = () => {
     navigation.replace(Screens.Data);
   };
@@ -66,10 +67,13 @@ const SignupScreen = ({ navigation }: LoginScreenProps) => {
       Alert.alert(Strings.error, ErrorCode[error]);
     }
   };
+
+  //váltás bejelentkezésre
   const onLoginPress = () => {
     navigation.replace(Screens.Login);
   };
 
+  //küldés gomb tiltása, ha nincsenek kitöltve a mezők
   const setButtonDisabled = () => {
     setDisabled(email === '' || password === '' || password_2 === '');
   };
